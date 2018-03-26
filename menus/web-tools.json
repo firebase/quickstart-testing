@@ -1,0 +1,102 @@
+{
+	"context-menu": {
+		"atom-text-editor": [
+			{
+				"label": "Toggle web-tools",
+				"command": "web-tools:toggle"
+			}
+		]
+	},
+	"menu": [
+		{
+			"label": "Packages",
+			"submenu": [
+				{
+					"label": "Web Tools",
+					"submenu": [
+						{
+							"label": "About …",
+							"command": "web-tools:about"
+						},
+						{
+							"label": "Convert …",
+							"submenu": [
+								{
+									"label": "Paragraphs",
+									"command": "web-tools:html:paragraphs"
+								},
+								{
+									"label": "Headings and Paragraphs",
+									"command": "web-tools:html:paragraphs-headings"
+								},
+								{
+									"label": "HTML Structure",
+									"command": "web-tools:html:structure"
+								},
+								{
+									"label": "Lists",
+									"submenu": [
+										{
+											"label": "Unordered List",
+											"command": "web-tools:html:lists:ul"
+										},
+										{
+											"label": "Ordered List",
+											"command": "web-tools:html:lists:ol"
+										},
+										{
+											"label": "Description List",
+											"command": "web-tools:html:lists:dl"
+										}
+									]
+								},
+								{
+									"label": "HTML Tables",
+									"command": "web-tools:html:tables"
+								},
+								{
+									"label": "HTML Structure",
+									"command": "web-tools:html:structure"
+								}
+							]
+						},
+						{
+							"label": "Insert",
+							"submenu": [
+								{
+									"label": "Add Image",
+									"command": "web-tools:html:insert-img"
+								},
+								{
+									"label": "Link to Style Sheet",
+									"command": "web-tools:html:insert-css"
+								},
+								{
+									"label": "Link to JavaScript",
+									"command": "web-tools:html:insert-js"
+								},
+								{
+									"label": "Link to …",
+									"command": "web-tools:html:insert-a"
+								}
+							]
+						},
+						{
+							"label": "Miscellaneous",
+							"submenu": [
+								{
+									"label": "Spaces to Tabs",
+									"command": "web-tools:misc:spaces-tabs"
+								},
+								{
+									"label": "Smart Quotes",
+									"command": "web-tools:misc:smart-quotes"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

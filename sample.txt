@@ -1,0 +1,64 @@
+Smart Quotes
+============================================================
+
+"This is a 'test'", he "said" but it's "quoted".
+'This is a "test"', he 'said' but it's 'quoted'.
+
+Lists
+============================================================
+
+the cat
+sat
+on the mat
+and
+that is that
+
+the cat
+sat
+on the mat
+and
+that is that
+
+HTML Structure
+============================================================
+
+div#info
+header
+	img
+main
+	article
+	aside
+footer
+
+Tables
+============================================================
+
+#header,sections,interlines
+A	B	C
+apple	banana	cherry donut
+aardvark	bandicoot
+accordion	banjo	clarinet	dobro
+artichoke	brussel sprouts	cauliflower
+
+
+Headings & Paragraphs
+============================================================
+
+This is a heading
+	The cat sat on the mat and that is that.
+	The frog sat on the log and watched the bog.
+This is a heading
+	The cat sat on the mat and that is that.
+	The frog sat on the log and watched the bog.
+
+	hello
+    goodbye
+    etc
+
+Anchors
+============================================================
+
+href1	test1
+href2	test2
+href3	test3
+href4	test4
