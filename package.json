@@ -8,6 +8,7 @@
   "activationCommands": {
     "atom-workspace": [
 		"web-tools:about",
+
 		"web-tools:html:lists:ul",
 		"web-tools:html:lists:ol",
 		"web-tools:html:lists:dl",
@@ -20,8 +21,15 @@
 		"web-tools:html:insert-js",
 		"web-tools:html:insert-a",
 		"web-tools:html:anchors",
+
 		"web-tools:misc:spaces-tabs",
-		"web-tools:misc:smart-quotes"
+		"web-tools:misc:smart-quotes",
+
+		"web-tools:tables:html",
+		"web-tools:tables:adoc",
+		"web-tools:tables:md",
+		"web-tools:tables:ascii",
+		"web-tools:tables:box"
 	]
   },
   "repository": "https://github.com/atom/web-tools",

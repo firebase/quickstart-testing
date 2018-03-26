@@ -82,6 +82,31 @@
 							]
 						},
 						{
+							"label": "Tables",
+							"submenu": [
+								{
+									"label": "HTML",
+									"command": "web-tools:tables:html"
+								},
+								{
+									"label": "AsciiDoc",
+									"command": "web-tools:tables:adoc"
+								},
+								{
+									"label": "MarkDown",
+									"command": "web-tools:tables:md"
+								},
+								{
+									"label": "ASCII Boxes",
+									"command": "web-tools:tables:ascii"
+								},
+								{
+									"label": "Graphic Boxes",
+									"command": "web-tools:tables:box"
+								}
+							]
+						},
+						{
 							"label": "Miscellaneous",
 							"submenu": [
 								{
