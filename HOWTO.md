@@ -68,3 +68,16 @@ Elements may be written in the following form:
 Obviously, only the element itself is required.
 
 ### Lists
+
+This will
+
+adocTable(data,options) {
+	//	#header,tab|comma,multiple
+asciiTable(data,delimiter,multiple,options) {
+	//	#header,interlines,tab|comma,multiple
+boxTable(data,options) {
+	//	#double,interlines,header,tab|comma,multiple
+gfmTable(data,options) {
+	//	#tab|comma,multiple
+htmlTable(text,options) {
+	//	#sections,header,tab|comma,multiple

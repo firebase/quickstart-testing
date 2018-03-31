@@ -1,0 +1,7 @@
+{
+  "indent": 1,
+  "esversion": 6,
+  "-W086": true,
+  "-W097": false,
+  "-W083": true
+}

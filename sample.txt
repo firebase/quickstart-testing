@@ -1,3 +1,5 @@
+
+
 Smart Quotes
 ============================================================
 
@@ -24,9 +26,11 @@ HTML Structure
 
 div#info
 header
-	img
+	img/
 main
 	article
+		p-#id.class
+		p#id.class:place holder text
 	aside
 footer
 

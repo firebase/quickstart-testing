@@ -1,7 +1,7 @@
 {
   "name": "web-tools",
   "main": "./lib/web-tools",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A Set of Tools to work with HTML",
   "keywords": [
   ],
@@ -9,27 +9,17 @@
     "atom-workspace": [
 		"web-tools:about",
 
-		"web-tools:html:lists:ul",
-		"web-tools:html:lists:ol",
-		"web-tools:html:lists:dl",
+		"web-tools:html:lists",
 		"web-tools:html:structure",
-		"web-tools:html:tables",
+		"web-tools:tables",
 		"web-tools:html:paragraphs",
 		"web-tools:html:paragraphs-headings",
-		"web-tools:html:insert-img",
-		"web-tools:html:insert-css",
-		"web-tools:html:insert-js",
-		"web-tools:html:insert-a",
+		"web-tools:html:insert",
 		"web-tools:html:anchors",
 
 		"web-tools:misc:spaces-tabs",
 		"web-tools:misc:smart-quotes",
-
-		"web-tools:tables:html",
-		"web-tools:tables:adoc",
-		"web-tools:tables:md",
-		"web-tools:tables:ascii",
-		"web-tools:tables:box"
+		"web-tools:misc:js-chars"
 	]
   },
   "repository": "https://github.com/atom/web-tools",

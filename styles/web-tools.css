@@ -1,0 +1,72 @@
+/** /
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
+// for a full listing of what's available.
+/**/
+@import "ui-variables";
+
+/** /
+html {
+
+}
+body {
+	background-color: rgb(236, 236, 236);
+	width: 478px;
+	margin: 0 auto;
+	font-size: 11px;
+}
+/**/
+
+form#web-tools {
+	padding: 1em;
+	font-family: "Source Sans Pro", sans-serif;
+	background-color: white;
+	box-sizing: border-box;
+	--background-color: #999;
+	font-size: 14px;
+}
+form#web-tools label {
+	font-weight: normal;
+	margin-left: 1em;
+}
+form#web-tools fieldset {
+	border: thin solid #666;
+	border-style: solid none none none;
+	padding: .25em 1em;
+	margin: 0 0 .25em 0;
+}
+form#web-tools fieldset legend {
+	display: inline;
+	font-weight: bold;
+	padding: .25em .5em;
+	color: white;
+	background-color: var(--background-color);
+}
+form#web-tools paragraph {
+	border: thin solid red;
+}
+form#web-tools fieldset+div {
+	box-sizing: border-box;
+	padding: .5em 0 0 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	border: thin solid #ccc;
+	border-style: solid none none none;
+}
+form#web-tools fieldset+div>button {
+	width: 8em;
+	border: thin solid #ccc;
+	padding: .5em;
+	background-color: var(--background-color);
+	color: white;
+	font-size: 1em;
+}
+form#web-tools input[type="text"] {
+	margin: .25em 0 .5em 0;
+}
+form#web-tools input[type="radio"],
+form#web-tools input[type="checkbox"]{
+	margin: 0 .75em 0 0;
+}
