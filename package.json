@@ -1,32 +1,28 @@
 {
   "name": "web-tools",
   "main": "./lib/web-tools",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A Set of Tools to work with HTML",
-  "keywords": [
-  ],
+  "keywords": [],
   "activationCommands": {
     "atom-workspace": [
-		"web-tools:about",
-
-		"web-tools:html:lists",
-		"web-tools:html:structure",
-		"web-tools:tables",
-		"web-tools:html:paragraphs",
-		"web-tools:html:paragraphs-headings",
-		"web-tools:html:insert",
-		"web-tools:html:anchors",
-
-		"web-tools:misc:spaces-tabs",
-		"web-tools:misc:smart-quotes",
-		"web-tools:misc:js-chars"
-	]
+      "web-tools:about",
+      "web-tools:html:lists",
+      "web-tools:html:structure",
+      "web-tools:tables",
+      "web-tools:html:paragraphs",
+      "web-tools:html:paragraphs-headings",
+      "web-tools:html:insert",
+      "web-tools:html:anchors",
+      "web-tools:misc:spaces-tabs",
+      "web-tools:misc:smart-quotes",
+      "web-tools:misc:js-chars"
+    ]
   },
   "repository": "https://github.com/manngo/atom-web-tools",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
