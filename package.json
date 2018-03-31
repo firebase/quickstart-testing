@@ -19,7 +19,7 @@
       "web-tools:misc:js-chars"
     ]
   },
-  "repository": "https://github.com/manngo/atom-web-tools",
+  "repository": "git@github.com:manngo/atom-web-tools.git",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
