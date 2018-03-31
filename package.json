@@ -1,7 +1,7 @@
 {
   "name": "web-tools",
   "main": "./lib/web-tools",
-  "version": "0.7.0",
+  "version": "0.6.0",
   "description": "A Set of Tools to work with HTML",
   "keywords": [],
   "activationCommands": {
@@ -19,7 +19,7 @@
       "web-tools:misc:js-chars"
     ]
   },
-  "repository": "git@github.com:manngo/atom-web-tools.git",
+  "repository": "https://github.com/manngo/atom-web-tools",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
