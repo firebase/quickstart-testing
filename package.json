@@ -16,6 +16,7 @@
       "web-tools:html:anchors",
       "web-tools:misc:spaces-tabs",
       "web-tools:misc:smart-quotes",
+      "web-tools:misc:entify",
       "web-tools:misc:js-chars"
     ]
   },

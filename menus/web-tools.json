@@ -71,10 +71,6 @@
 									"command": "web-tools:tables"
 								},
 								{
-									"label": "HTML Structure",
-									"command": "web-tools:html:structure"
-								},
-								{
 									"label": "Anchors",
 									"command": "web-tools:html:anchors"
 								},
@@ -98,6 +94,10 @@
 								{
 									"label": "Smart Quotes",
 									"command": "web-tools:misc:smart-quotes"
+								},
+								{
+									"label": "HTML Entify",
+									"command": "web-tools:misc:entify"
 								},
 								{
 									"label": "Convert String to JavaScript",
