@@ -1,10 +1,3 @@
-<style>
-	td, th {
-		text-align: left;
-		vertical-align: top;
-	}
-</style>
-
 # Web Tools
 
 This Atom Package simplifies some of the processing of hand-coding HTML.
