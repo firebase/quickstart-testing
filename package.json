@@ -1,7 +1,7 @@
 {
   "name": "web-tools",
   "main": "./lib/web-tools",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "description": "A Set of Tools to work with HTML",
   "keywords": [],
   "activationCommands": {
