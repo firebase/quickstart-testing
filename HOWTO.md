@@ -23,6 +23,7 @@ To use these tools:
 1. Enter the text in the appropriate format
 2. Select the text
 3. Select the tool
+4. Select any Options
 
 In some cases, an optional comment line may be included in the beginning to pass options to the tool.
 

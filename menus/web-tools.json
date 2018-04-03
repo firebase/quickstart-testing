@@ -102,7 +102,12 @@
 								{
 									"label": "Convert String to JavaScript",
 									"command": "web-tools:misc:js-chars"
+								},
+								{
+									"label": "Create Sample File",
+									"command": "web-tools:misc:sample"
 								}
+
 							]
 						}
 					]
