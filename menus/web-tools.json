@@ -73,10 +73,6 @@
 								{
 									"label": "Anchors",
 									"command": "web-tools:html:anchors"
-								},
-								{
-									"label": "strings",
-									"command": "web-tools:strings"
 								}
 							]
 						},
@@ -102,6 +98,10 @@
 								{
 									"label": "Convert String to JavaScript",
 									"command": "web-tools:misc:js-chars"
+								},
+								{
+									"label": "Convert CSS Color Literals",
+									"command": "web-tools:css:colors"
 								},
 								{
 									"label": "Collapse Lines",

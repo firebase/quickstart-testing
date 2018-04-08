@@ -1,31 +1,32 @@
 {
-  "name": "web-tools",
-  "main": "./lib/web-tools",
-  "version": "0.26.0",
-  "description": "A Set of Tools to work with HTML",
-  "keywords": [],
-  "activationCommands": {
-    "atom-workspace": [
-      "web-tools:about",
-      "web-tools:html:lists",
-      "web-tools:html:structure",
-      "web-tools:tables",
-      "web-tools:html:paragraphs",
-      "web-tools:html:paragraphs-headings",
-      "web-tools:html:insert",
-      "web-tools:html:anchors",
-      "web-tools:misc:spaces-tabs",
-      "web-tools:misc:smart-quotes",
-      "web-tools:misc:entify",
-      "web-tools:misc:js-chars",
-      "web-tools:misc:collapse-lines",
-      "web-tools:misc:sample"
-    ]
-  },
-  "repository": "https://github.com/manngo/atom-web-tools",
-  "license": "MIT",
-  "engines": {
-    "atom": ">=1.0.0 <2.0.0"
-  },
-  "dependencies": {}
+	"name": "web-tools",
+	"main": "./lib/web-tools",
+	"version": "0.26.0",
+	"description": "A Set of Tools to work with HTML",
+	"keywords": [],
+	"activationCommands": {
+	    "atom-workspace": [
+			"web-tools:about",
+			"web-tools:html:lists",
+			"web-tools:html:structure",
+			"web-tools:tables",
+			"web-tools:html:paragraphs",
+			"web-tools:html:paragraphs-headings",
+			"web-tools:html:insert",
+			"web-tools:html:anchors",
+			"web-tools:css:colors",
+			"web-tools:misc:spaces-tabs",
+			"web-tools:misc:smart-quotes",
+			"web-tools:misc:entify",
+			"web-tools:misc:js-chars",
+			"web-tools:misc:collapse-lines",
+			"web-tools:misc:sample"
+		]
+	},
+	"repository": "https://github.com/manngo/atom-web-tools",
+	"license": "MIT",
+	"engines": {
+		"atom": ">=1.0.0 <2.0.0"
+	},
+	"dependencies": {}
 }

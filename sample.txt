@@ -81,3 +81,10 @@ Collapse Lines
 		hello
 	    goodbye
 	    etc
+
+CSS Colours
+============================================================
+
+#abcdef
+rgb(60,80,200)
+rgb(25%,30%,50%)

@@ -28,6 +28,7 @@ There are also some additional tools to help with setting up pages and some comm
 	- Smart Quotes
 	- HTML Entify
 	- Convert String to JavaScript
+	- Convert CSS Color Literals
 	- Collapse Lines
 	- Create Sample File
 
