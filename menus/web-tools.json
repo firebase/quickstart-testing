@@ -104,6 +104,10 @@
 									"command": "web-tools:misc:js-chars"
 								},
 								{
+									"label": "Collapse Lines",
+									"command": "web-tools:misc:collapse-lines"
+								},
+								{
 									"label": "Create Sample File",
 									"command": "web-tools:misc:sample"
 								}

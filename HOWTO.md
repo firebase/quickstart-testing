@@ -12,6 +12,25 @@ The various tools either replace selected text with HTML code which would be mor
 
 There are also some additional tools to help with setting up pages and some common preferences.
 
+##	The Menu
+
+- About …
+- Convert …
+	- Paragraphs
+	- Headings and Paragraphs
+	- HTML Structure
+	- Lists …
+	- Tables …
+	- Anchors
+- Insert …
+- Miscellaneous
+	- Spaces to Tabs
+	- Smart Quotes
+	- HTML Entify
+	- Convert String to JavaScript
+	- Collapse Lines
+	- Create Sample File
+
 ##	Convert Text
 
 This is also available from the `right-click` menu.

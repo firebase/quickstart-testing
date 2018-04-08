@@ -66,3 +66,18 @@ href1	test1
 href2	test2
 href3	test3
 href4	test4
+
+
+Collapse Lines
+============================================================
+
+	This is a heading
+		The cat sat on the mat and that is that.
+		The frog sat on the log and watched the bog.
+	This is a heading
+		The cat sat on the mat and that is that.
+		The frog sat on the log and watched the bog.
+
+		hello
+	    goodbye
+	    etc

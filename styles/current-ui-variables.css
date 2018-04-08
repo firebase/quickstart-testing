@@ -1,0 +1,102 @@
+body {
+  --text-color: #333;
+  /*	#333	*/
+  --text-color-subtle: #777;
+  /*	#777	*/
+  --text-color-highlight: #111;
+  /*	#111	*/
+  --text-color-selected: #111;
+  /*	@text-color-highlight	*/
+  --text-color-info: #5293d8;
+  /*	#5293d8	*/
+  --text-color-success: #1fe977;
+  /*	#1fe977	*/
+  --text-color-warning: #f78a46;
+  /*	#f78a46	*/
+  --text-color-error: #c00;
+  /*	#c00	*/
+  --background-color-info: #0098ff;
+  /*	#0098ff	*/
+  --background-color-success: #17ca65;
+  /*	#17ca65	*/
+  --background-color-warning: #ff4800;
+  /*	#ff4800	*/
+  --background-color-error: #c00;
+  /*	#c00	*/
+  --background-color-highlight: rgba(0, 0, 0, 0.1);
+  /*	hsla(0,0%,0%,.1)	*/
+  --background-color-selected: rgba(0, 0, 0, 0.1);
+  /*	@background-color-highlight	*/
+  --app-background-color: #fff;
+  /*	#fff	*/
+  --base-background-color: #fff;
+  /*	#fff	*/
+  --base-border-color: #eee;
+  /*	#eee	*/
+  --pane-item-background-color: #fff;
+  /*	@base-background-color	*/
+  --pane-item-border-color: #eee;
+  /*	@base-border-color	*/
+  --input-background-color: #fff;
+  /*	#fff	*/
+  --input-border-color: #eee;
+  /*	@base-border-color	*/
+  --tool-panel-background-color: #f4f4f4;
+  /*	#f4f4f4	*/
+  --tool-panel-border-color: #eee;
+  /*	@base-border-color	*/
+  --inset-panel-background-color: #eee;
+  /*	#eee	*/
+  --inset-panel-border-color: #eee;
+  /*	@base-border-color	*/
+  --panel-heading-background-color: #ddd;
+  /*	#ddd	*/
+  --panel-heading-border-color: transparent;
+  /*	transparent	*/
+  --overlay-background-color: #f4f4f4;
+  /*	#f4f4f4	*/
+  --overlay-border-color: #eee;
+  /*	@base-border-color	*/
+  --button-background-color: #ccc;
+  /*	#ccc	*/
+  --button-background-color-hover: #d9d9d9;
+  /*	lighten(@button-background-color, 5%)	*/
+  --button-background-color-selected: #d9d9d9;
+  /*	@button-background-color-hover	*/
+  --button-border-color: #aaa;
+  /*	#aaa	*/
+  --tab-bar-background-color: #fff;
+  /*	#fff	*/
+  --tab-bar-border-color: #e6e6e6;
+  /*	darken(@tab-background-color-active, 10%)	*/
+  --tab-background-color: #f4f4f4;
+  /*	#f4f4f4	*/
+  --tab-background-color-active: #fff;
+  /*	#fff	*/
+  --tab-border-color: #eee;
+  /*	@base-border-color	*/
+  --tree-view-background-color: #f4f4f4;
+  /*	@tool-panel-background-color	*/
+  --tree-view-border-color: #eee;
+  /*	@tool-panel-border-color	*/
+  --font-size: 13px;
+  /*	13px	*/
+  --input-font-size: 14px;
+  /*	14px	*/
+  --disclosure-arrow-size: 12px;
+  /*	12px	*/
+  --component-padding: 10px;
+  /*	10px	*/
+  --component-icon-padding: 5px;
+  /*	5px	*/
+  --component-icon-size: 16px;
+  /*	16px	*/
+  --component-line-height: 25px;
+  /*	25px	*/
+  --component-border-radius: 2px;
+  /*	2px	*/
+  --tab-height: 30px;
+  /*	30px	*/
+  --font-family: 'BlinkMacSystemFont', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
+  /*	'BlinkMacSystemFont', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif	*/
+}

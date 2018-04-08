@@ -18,6 +18,7 @@
       "web-tools:misc:smart-quotes",
       "web-tools:misc:entify",
       "web-tools:misc:js-chars",
+      "web-tools:misc:collapse-lines",
       "web-tools:misc:sample"
     ]
   },

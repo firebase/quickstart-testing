@@ -18,8 +18,8 @@
 /*	Import Theme Colours
 	================================================ */
 
-//	@import "ui-variables.css";
-	@import "ui-variables";
+//	@import "qui-variables.css";
+	@import "ui-variables.less";
 
 /** /
 	html {
@@ -67,12 +67,15 @@
 		border-style: solid none none none;
 	}
 	form#web-tools fieldset+div>button {
-		width: 8em;
-		border: thin solid @text-color-subtle;
+		width: 6em;
 		padding: .5em;
+		border: none;
+		background-color: @app-background-color;
+		font-size: 1em;
+	}
+	form#web-tools fieldset+div>button:hover {
 		background-color: @text-color-subtle;
 		color: @base-background-color;
-		font-size: 1em;
 	}
 	form#web-tools input[type="text"] {
 		margin: .25em 0 .5em 0;
