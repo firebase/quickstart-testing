@@ -96,6 +96,10 @@
 									"command": "web-tools:misc:entify"
 								},
 								{
+									"label": "Convert Document to HTML5",
+									"command": "web-tools:html:html5"
+								},
+								{
 									"label": "Convert String to JavaScript",
 									"command": "web-tools:misc:js-chars"
 								},

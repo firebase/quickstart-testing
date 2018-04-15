@@ -6,6 +6,8 @@ Smart Quotes
 "This is a 'test'", he "said" but it's "quoted".
 'This is a "test"', he 'said' but it's 'quoted'.
 
+"not this?"
+
 Lists
 ============================================================
 
@@ -88,3 +90,8 @@ CSS Colours
 #abcdef
 rgb(60,80,200)
 rgb(25%,30%,50%)
+
+Entify
+============================================================
+
+a<b & b>a all's "well"
