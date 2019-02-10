@@ -21,7 +21,8 @@
       "web-tools:misc:entify",
       "web-tools:misc:js-chars",
       "web-tools:misc:collapse-lines",
-      "web-tools:misc:sample"
+      "web-tools:misc:sample",
+      "web-tools:misc:replace"
     ]
   },
   "repository": "https://github.com/manngo/atom-web-tools",

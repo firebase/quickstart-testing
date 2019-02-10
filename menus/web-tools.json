@@ -114,8 +114,11 @@
 								{
 									"label": "Create Sample File",
 									"command": "web-tools:misc:sample"
+								},
+								{
+									"label": "Find and Replace",
+									"command": "web-tools:misc:replace"
 								}
-
 							]
 						}
 					]
