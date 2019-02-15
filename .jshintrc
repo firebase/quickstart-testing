@@ -3,5 +3,8 @@
   "esversion": 6,
   "-W086": true,
   "-W097": false,
-  "-W083": true
+  "-W083": true,
+  "-W084": true,
+  "eqeqeq": false,
+  "shadow": true
 }
