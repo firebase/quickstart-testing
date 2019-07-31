@@ -6,5 +6,13 @@
   "-W083": true,
   "-W084": true,
   "eqeqeq": false,
-  "shadow": true
+  "shadow": true,
+  "sub": true,
+  "globals": {
+	  "window": true,
+	  "document": true,
+	  "alert": true,
+	  "FileReader": true,
+	  "NodeList": true
+  }
 }

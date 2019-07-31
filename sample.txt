@@ -31,7 +31,8 @@ header
 	img/
 main
 	article
-		p-#id.class
+		element#id.class[thing&this=that&more=stuff]:more words
+		p#id.class
 		p#id.class:place holder text
 	aside
 footer

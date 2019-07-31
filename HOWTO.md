@@ -1,4 +1,3 @@
-# Using Web Tools
 <style>
 	td, th {
 		text-align: left;
@@ -116,7 +115,7 @@ The element descriptor takes the following form:
 | element       | HTML tag</html:li>                                |
 | #id           | optional id</html:li>                             |
 | .class        | optional class name</html:li>                     |
-| :place holder | optional text which may be used as a place holder;<br>can include spaces |
+| :place holder | optional text which may be used as a place holder;<br>can include spaces<br>empty placeholder makes element inline |
 
 Obviously, only the element itself is required.
 
@@ -126,7 +125,6 @@ In addition, the element may be written in the following form:
 |--------------|----------------------------------------------------------|
 | `element`    | simple element                                           |
 | `element/`   | Element is void (non-container)<br>eg `img/` ➔ `<img>`   |
-| `e.element-` | Element is written on one line<br>eg `h1-` ➔ `<h1></h1>` |
 
 
 ```
