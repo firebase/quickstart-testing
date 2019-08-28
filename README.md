@@ -50,4 +50,14 @@ Miscellaenous document-related tools.
 | Smart Quotes   | Converts the "straight quotes" in the selected text to “Smart Quotes”                        |
 | Entify         | Converts `<`, `>`, `&` and possibly `'` & `"` to HTML Entities |
 
+### Additional Keyboard Function
+
+There is additional functionality to add a new line without indenting. To finish the job, you need to add the following in you `~/.atom/keymap.cson` file:
+
+```
+'atom-workspace atom-text-editor:not([mini])':
+	…
+	'shift-enter': 'web-tools:shift-enter-no-indent',
+```
+
 See [HOWTO](HOWTO.md) for details on how to use the tools
