@@ -116,6 +116,10 @@
 									"command": "web-tools:misc:sample"
 								},
 								{
+									"label": "Get Path Name",
+									"command": "web-tools:misc:getPath"
+								},
+								{
 									"label": "Find and Replace",
 									"command": "web-tools:misc:replace"
 								}
