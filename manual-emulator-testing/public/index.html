@@ -1,0 +1,57 @@
+<!--
+  Copyright 2020 Google LLC
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<html>
+  <head>
+    <!-- This demo uses Vue.js 2.0 to create a simple UI -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- Basic styles from water.css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css">
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-firestore.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <h4>Messages</h4>
+      <ul>
+        <li 
+          v-for="(msg, index) in messages"
+          v-bind:key="index">
+          {{ msg.text }}
+        </li>
+      </ul>
+
+      <br />
+
+      <form>
+        <input v-model="msgInput" type="text" placeholder="Add a message..." autofocus></textarea>
+        <button v-on:click.prevent="submit()">Submit</button>
+      </form>
+
+      <br />
+
+      <a href="http://localhost:4000/firestore" style="font-size: 9pt;" target="_blank">View data in the Emulator UI</a>
+    </div>
+    <script src="/index.js"></script>
+  </body>
+</html>
+
+
+
