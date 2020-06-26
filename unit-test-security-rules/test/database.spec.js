@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 const firebase = require("@firebase/testing");
-const fs = require('fs');
+const fs = require("fs");
 
 /**
  * The emulator will accept any database name for testing.
@@ -31,14 +31,18 @@ const COVERAGE_URL = `http://${process.env.FIREBASE_DATABASE_EMULATOR_HOST}/.ins
  * Creates a new client FirebaseApp with authentication and returns the Database instance.
  */
 function getAuthedDatabase(auth) {
-  return firebase.initializeTestApp({ databaseName: DATABASE_NAME, auth }).database();
+  return firebase
+    .initializeTestApp({ databaseName: DATABASE_NAME, auth })
+    .database();
 }
 
 /**
  * Creates a new admin FirebaseApp and returns the Database instance.
  */
 function getAdminDatabase() {
-  return firebase.initializeAdminApp({ databaseName: DATABASE_NAME }).database();
+  return firebase
+    .initializeAdminApp({ databaseName: DATABASE_NAME })
+    .database();
 }
 
 before(async () => {
@@ -46,20 +50,18 @@ before(async () => {
   const rules = fs.readFileSync("database.rules.json", "utf8");
   await firebase.loadDatabaseRules({
     databaseName: DATABASE_NAME,
-    rules: rules
+    rules: rules,
   });
 });
 
 beforeEach(async () => {
   // Clear the database between tests
-  await getAdminDatabase()
-    .ref()
-    .set(null);
+  await getAdminDatabase().ref().set(null);
 });
 
 after(async () => {
   // Close any open apps
-  await Promise.all(firebase.apps().map(app => app.delete()));
+  await Promise.all(firebase.apps().map((app) => app.delete()));
   console.log(`View rule coverage information at ${COVERAGE_URL}\n`);
 });
 
@@ -69,12 +71,10 @@ describe("profile read rules", () => {
     const bob = getAuthedDatabase({ uid: "bob" });
     const noone = getAuthedDatabase(null);
 
-    await getAdminDatabase()
-      .ref("users/alice")
-      .set({
-        name: "Alice",
-        profilePicture: "http://cool_photos/alice.jpg"
-      });
+    await getAdminDatabase().ref("users/alice").set({
+      name: "Alice",
+      profilePicture: "http://cool_photos/alice.jpg",
+    });
 
     await firebase.assertSucceeds(alice.ref("users/alice").once("value"));
     await firebase.assertSucceeds(bob.ref("users/alice").once("value"));
@@ -88,17 +88,17 @@ describe("profile read rules", () => {
 
     await firebase.assertSucceeds(
       alice.ref("users/alice").update({
-        favorite_color: "blue"
+        favorite_color: "blue",
       })
     );
     await firebase.assertFails(
       bob.ref("users/alice").update({
-        favorite_color: "red"
+        favorite_color: "red",
       })
     );
     await firebase.assertFails(
       noone.ref("users/alice").update({
-        favorite_color: "orange"
+        favorite_color: "orange",
       })
     );
   });

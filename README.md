@@ -17,3 +17,10 @@ Please read and follow the steps in the [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 See [LICENSE](LICENSE)
+
+## Build Status
+
+[![Actions Status][gh-actions-badge]][gh-actions]
+
+[gh-actions]: https://github.com/firebase/quickstart-testing/actions
+[gh-actions-badge]: https://github.com/firebase/quickstart-testing/workflows/CI%20Tests/badge.svg

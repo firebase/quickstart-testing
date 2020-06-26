@@ -1,0 +1,7 @@
+{
+  "packages": [
+    "unit-test-security-rules",
+    "manual-emulator-testing"
+  ],
+  "version": "0.0.0"
+}

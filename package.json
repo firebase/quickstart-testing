@@ -1,0 +1,17 @@
+{
+  "name": "quickstart-testing",
+  "version": "1.0.0",
+  "description": "Firebase testing samples",
+  "scripts": {
+    "format": "prettier --write **/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firebase/quickstart-testing"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "lerna": "^3.22.1",
+    "prettier": "^2.0.5"
+  }
+}

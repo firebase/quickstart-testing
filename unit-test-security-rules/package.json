@@ -4,7 +4,8 @@
   "scripts": {
     "test-database": "mocha test/database.spec.js",
     "test-firestore": "mocha test/firestore.spec.js",
-    "test:ci": "firebase emulators:exec 'npm run mocha test/*.js'"
+    "test-all": "mocha test/*.js",
+    "test:ci": "firebase emulators:exec 'npm run test-all'"
   },
   "license": "Apache-2.0",
   "devDependencies": {

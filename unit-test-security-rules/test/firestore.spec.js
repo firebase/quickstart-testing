@@ -31,7 +31,9 @@ const COVERAGE_URL = `http://${process.env.FIRESTORE_EMULATOR_HOST}/emulator/v1/
  * Creates a new client FirebaseApp with authentication and returns the Firestore instance.
  */
 function getAuthedFirestore(auth) {
-  return firebase.initializeTestApp({ projectId: PROJECT_ID, auth }).firestore();
+  return firebase
+    .initializeTestApp({ projectId: PROJECT_ID, auth })
+    .firestore();
 }
 
 beforeEach(async () => {
@@ -48,7 +50,7 @@ before(async () => {
 after(async () => {
   // Delete all the FirebaseApp instances created during testing
   // Note: this does not affect or clear any data
-  await Promise.all(firebase.apps().map(app => app.delete()));
+  await Promise.all(firebase.apps().map((app) => app.delete()));
   console.log(`View rule coverage information at ${COVERAGE_URL}\n`);
 });
 
@@ -66,7 +68,7 @@ describe("My app", () => {
     await firebase.assertSucceeds(
       profile.set({
         birthday: "January 1",
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       })
     );
   });
@@ -74,22 +76,16 @@ describe("My app", () => {
   it("should only let users create their own profile", async () => {
     const db = getAuthedFirestore({ uid: "alice" });
     await firebase.assertSucceeds(
-      db
-        .collection("users")
-        .doc("alice")
-        .set({
-          birthday: "January 1",
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        })
+      db.collection("users").doc("alice").set({
+        birthday: "January 1",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      })
     );
     await firebase.assertFails(
-      db
-        .collection("users")
-        .doc("bob")
-        .set({
-          birthday: "January 1",
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        })
+      db.collection("users").doc("bob").set({
+        birthday: "January 1",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      })
     );
   });
 
@@ -105,7 +101,7 @@ describe("My app", () => {
     await firebase.assertSucceeds(
       room.set({
         owner: "alice",
-        topic: "All Things Firebase"
+        topic: "All Things Firebase",
       })
     );
   });
@@ -116,7 +112,7 @@ describe("My app", () => {
     await firebase.assertFails(
       room.set({
         owner: "scott",
-        topic: "Firebase Rocks!"
+        topic: "Firebase Rocks!",
       })
     );
   });
@@ -126,23 +122,17 @@ describe("My app", () => {
     const bob = getAuthedFirestore({ uid: "bob" });
 
     await firebase.assertSucceeds(
-      bob
-        .collection("rooms")
-        .doc("snow")
-        .set({
-          owner: "bob",
-          topic: "All Things Snowboarding"
-        })
+      bob.collection("rooms").doc("snow").set({
+        owner: "bob",
+        topic: "All Things Snowboarding",
+      })
     );
 
     await firebase.assertFails(
-      alice
-        .collection("rooms")
-        .doc("snow")
-        .set({
-          owner: "alice",
-          topic: "skiing > snowboarding"
-        })
+      alice.collection("rooms").doc("snow").set({
+        owner: "alice",
+        topic: "skiing > snowboarding",
+      })
     );
   });
 });

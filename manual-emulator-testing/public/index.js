@@ -15,14 +15,16 @@
  */
 
 // Initialze Firestore pointing at our test project
-const db = firebase.initializeApp({ 
-  projectId: "manual-emulator-testing" 
-}).firestore();
+const db = firebase
+  .initializeApp({
+    projectId: "manual-emulator-testing",
+  })
+  .firestore();
 
 // Connect the Firestore SDK to the local emulator
-db.settings({ 
-  host: "localhost:8080", 
-  ssl: false 
+db.settings({
+  host: "localhost:8080",
+  ssl: false,
 });
 
 // Use Vue.js to populate the UI with data
@@ -30,29 +32,29 @@ db.settings({
 // Note: there is no special integration between Vue.js and Firebase, feel free
 // to use any JavaScript framework you want in your own code!
 const app = new Vue({
-  el: '#app',
+  el: "#app",
   data: {
     messages: [],
     msgInput: "",
   },
   methods: {
-    submit: function() {
+    submit: function () {
       console.log("Adding message...");
       db.collection("messages").add({
         text: this.msgInput,
-        time: firebase.firestore.FieldValue.serverTimestamp()
+        time: firebase.firestore.FieldValue.serverTimestamp(),
       });
 
       this.msgInput = "";
-    }
+    },
   },
   created: function () {
     // Listen to the messages collection
     db.collection("messages")
       .orderBy("time", "asc")
-      .onSnapshot(snap => {
+      .onSnapshot((snap) => {
         console.log("Got data from firestore!");
-        this.messages = snap.docs.map(doc => doc.data());
+        this.messages = snap.docs.map((doc) => doc.data());
       });
-  }
+  },
 });
