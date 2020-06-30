@@ -36,13 +36,13 @@ cd ~/rules-tutorial
 3.  Check out the tutorial project from Github.
 
 ```bash  
-git clone -b rpb/markarndt https://github.com/firebase/quickstart-nodejs
+git clone https://github.com/firebase/quickstart-testing
 ```
 
 4.  Change directory to the tutorial project.
 
 ```bash  
-cd quickstart-nodejs/cs-walkthrough/
+cd quickstart-testing/cs-walkthrough/
 ```
 
 4.  Install the Firebase Test SDK and a few more tools.
@@ -59,14 +59,14 @@ This Learn Assistant has some convenient features we'll take advantage of for th
 
 Note: Be sure you've followed the previous topic and created the home directory structure explained there.
 
-1.  You'll be **opening** a series of Security Rules template files. Click to open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_0">the first, which is firebase.rules_template_0</walkthrough-editor-open-file>.
-2.  In those template files, you'll **review** descriptions and comments on security rules. Click to select <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_0" startLine=6 startCharacterOffset=0 endLine=7 endCharacterOffset=0>some discussion of a rule definition</walkthrough-editor-select-line>.
-3.  After reviewing rule definitions, you'll **edit** rules and **save the changes** in preparation for re-running the test suite. Click to select <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_0" startLine=7 startCharacterOffset=0 endLine=9 endCharacterOffset=0>code modification instructions</walkthrough-editor-select-line>.
+1.  You'll be **opening** a series of Security Rules template files. Click to open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_0">the first, which is firebase.rules_template_0</walkthrough-editor-open-file>.
+2.  In those template files, you'll **review** descriptions and comments on security rules. Click to select <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_0" startLine=6 startCharacterOffset=0 endLine=7 endCharacterOffset=0>some discussion of a rule definition</walkthrough-editor-select-line>.
+3.  After reviewing rule definitions, you'll **edit** rules and **save the changes** in preparation for re-running the test suite. Click to select <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_0" startLine=7 startCharacterOffset=0 endLine=9 endCharacterOffset=0>code modification instructions</walkthrough-editor-select-line>.
 4.  At the Cloud Shell prompt, you'll **copy the template file to update your main tutorial firestore.rules file**.
 
 ```bash   
-cp ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_0 \
-   ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/firestore.rules
+cp ~/rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_0 \
+   ~/rules-tutorial/quickstart-testing/cs-walkthrough/firestore.rules
 ```  
 We'll present most of the walkthrough content and hands-on exercises this way, so repeat the above sequence as many times as you like to get comfortable with this interaction.
 
@@ -122,7 +122,7 @@ firebase emulators:start --only firestore,functions
 4.  At the new session prompt, change directory to our Security Rules walkthrough project.
 
 ```bash  
-cd ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/
+cd ~/rules-tutorial/quickstart-testing/cs-walkthrough/
 ```
 
 5.  Run the test suite.
@@ -150,22 +150,22 @@ The default ```firestore.rules``` in this walkthrough are set with open security
 
 The Firebase emulators are waiting for more database interactions and Security Rules evaluations, so let's update ```firestore.rules``` to improve security and re-run the tests!
 
-1. Open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_1">firestore.rules_template_1</walkthrough-editor-open-file>. 
+1. Open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_1">firestore.rules_template_1</walkthrough-editor-open-file>. 
 
 2. **Review** the two rules definitions in this file:
 
-* A definition that applies to all documents in the database, <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_1" startLine=9 startCharacterOffset=0 endLine=14 endCharacterOffset=0>here</walkthrough-editor-select-line>.
-* A definition that applies to items in the items collection, <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_1" startLine=25 startCharacterOffset=0 endLine=31 endCharacterOffset=0>here</walkthrough-editor-select>.
+* A definition that applies to all documents in the database, <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_1" startLine=9 startCharacterOffset=0 endLine=14 endCharacterOffset=0>here</walkthrough-editor-select-line>.
+* A definition that applies to items in the items collection, <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_1" startLine=25 startCharacterOffset=0 endLine=31 endCharacterOffset=0>here</walkthrough-editor-select>.
 
-3. Now **edit the rules** to <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_1" startLine=14 startCharacterOffset=0 endLine=23 endCharacterOffset=0>begin tightening security</walkthrough-editor-select-line>.
+3. Now **edit the rules** to <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_1" startLine=14 startCharacterOffset=0 endLine=23 endCharacterOffset=0>begin tightening security</walkthrough-editor-select-line>.
 
 4. Using your modified and **saved** firestore.rules_template_1 file, **copy/replace to update firestore.rules**.
 
 The emulators automatically detect these `.rules` file changes and load the new rules. 
 
 ```bash
-cp ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_1 \
-   ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/firestore.rules
+cp ~/rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_1 \
+   ~/rules-tutorial/quickstart-testing/cs-walkthrough/firestore.rules
 ```
 
 5.  Run the tests again.
@@ -180,24 +180,24 @@ We've now fully locked down the data, so we go from 4 test successes to 4 failur
 
 First let's look at at letting users create carts in a secure way.
 
-1. Open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_2">firestore.rules_template_2</walkthrough-editor-open-file>. 
+1. Open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_2">firestore.rules_template_2</walkthrough-editor-open-file>. 
 
 2. **Review** and **edit** the ```match``` statement controlling access to ```cart``` documents:
 
-* Review the ```match``` statement <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_2" startLine=10 startCharacterOffset=0 endLine=14 endCharacterOffset=0>here</walkthrough-editor-select-line>.
+* Review the ```match``` statement <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_2" startLine=10 startCharacterOffset=0 endLine=14 endCharacterOffset=0>here</walkthrough-editor-select-line>.
 
-* Edit the ```match``` statement <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_2" startLine=14 startCharacterOffset=0 endLine=18 endCharacterOffset=0>here</walkthrough-editor-select-line>.
+* Edit the ```match``` statement <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_2" startLine=14 startCharacterOffset=0 endLine=18 endCharacterOffset=0>here</walkthrough-editor-select-line>.
 
 3. Now **review** and **edit** the ```allow``` statement to narrow down who can interact with selected ```cart``` documents:
 
-* Review the notes about the current and proposed ```allow``` statement <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_2" startLine=18 startCharacterOffset=0 endLine=20 endCharacterOffset=0>here</walkthrough-editor-select-line>.
+* Review the notes about the current and proposed ```allow``` statement <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_2" startLine=18 startCharacterOffset=0 endLine=20 endCharacterOffset=0>here</walkthrough-editor-select-line>.
 
-* And then edit <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_2" startLine=20 startCharacterOffset=0 endLine=24 endCharacterOffset=0>here</walkthrough-editor-select-line>.
+* And then edit <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_2" startLine=20 startCharacterOffset=0 endLine=24 endCharacterOffset=0>here</walkthrough-editor-select-line>.
 
 4. **Copy** the modified and **saved** firestore.rules_template_2 file to update ```firestore.rules```.
 ```bash
-cp ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_2 \
-   ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/firestore.rules
+cp ~/rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_2 \
+   ~/rules-tutorial/quickstart-testing/cs-walkthrough/firestore.rules
 ```
 
 5.  Run the tests again.
@@ -211,18 +211,18 @@ Great, 1 test passed, 3 more to go.
 
 The next test covers the case of a cart owner having the ability to read, update, or delete their cart.
 
-1. Open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_3">firestore.rules_template_3</walkthrough-editor-open-file>. 
+1. Open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_3">firestore.rules_template_3</walkthrough-editor-open-file>. 
 
 2. Now **review** and **edit** the template to add to the ```allow``` statement:
 
-* Review the notes about this addition <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_3" startLine=13 startCharacterOffset=0 endLine=21 endCharacterOffset=0>here</walkthrough-editor-select-line>.
+* Review the notes about this addition <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_3" startLine=13 startCharacterOffset=0 endLine=21 endCharacterOffset=0>here</walkthrough-editor-select-line>.
 
-* And then edit <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_3" startLine=21 startCharacterOffset=0 endLine=24 endCharacterOffset=0>here</walkthrough-editor-select-line>.
+* And then edit <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_3" startLine=21 startCharacterOffset=0 endLine=24 endCharacterOffset=0>here</walkthrough-editor-select-line>.
 
 3. **Copy** the modified and **saved** firestore.rules_template_3 file to update ```firestore.rules```.
 ```bash
-cp ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_3 \
-   ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/firestore.rules
+cp ~/rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_3 \
+   ~/rules-tutorial/quickstart-testing/cs-walkthrough/firestore.rules
 ```
 
 4.  Run the tests.
@@ -236,18 +236,18 @@ There we go. Now 2 passing tests.
 
 Empty carts are no good. Let's write a new set of ```match``` and ```allow``` statements so users can add items to their carts as as long as they own the cart.
 
-1. Open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_4">firestore.rules_template_4</walkthrough-editor-open-file>. 
+1. Open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_4">firestore.rules_template_4</walkthrough-editor-open-file>. 
 
 2. Now **review** and **edit** the template to add new rule statements:
 
-* Review the notes about this addition <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_4" startLine=15 startCharacterOffset=0 endLine=24 endCharacterOffset=0>here</walkthrough-editor-select-line>.
+* Review the notes about this addition <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_4" startLine=15 startCharacterOffset=0 endLine=24 endCharacterOffset=0>here</walkthrough-editor-select-line>.
 
-* And then edit <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_4" startLine=24 startCharacterOffset=0 endLine=31 endCharacterOffset=0>here</walkthrough-editor-select-line>.
+* And then edit <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_4" startLine=24 startCharacterOffset=0 endLine=31 endCharacterOffset=0>here</walkthrough-editor-select-line>.
 
 3. **Copy** the modified and **saved** firestore.rules_template_4 file to update ```firestore.rules```.
 ```bash
-cp ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_4 \
-   ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/firestore.rules
+cp ~/rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_4 \
+   ~/rules-tutorial/quickstart-testing/cs-walkthrough/firestore.rules
 ```
 
 4.  Run the tests.
@@ -261,16 +261,16 @@ Almost there. Let's adjust the rules for our final test case.
 
 Last but not least, users should be able to view ```items```.
 
-1. Open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_5">firestore.rules_template_5</walkthrough-editor-open-file>. 
+1. Open <walkthrough-editor-open-file filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_5">firestore.rules_template_5</walkthrough-editor-open-file>. 
 
 2. Now **review** and **edit** the template to add new rule statements:
 
-* Edit <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_5" startLine=16 startCharacterOffset=0 endLine=17 endCharacterOffset=0>here</walkthrough-editor-select-line>.
+* Edit <walkthrough-editor-select-line filePath="./rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_5" startLine=16 startCharacterOffset=0 endLine=17 endCharacterOffset=0>here</walkthrough-editor-select-line>.
 
 3. **Copy** the modified and **saved** firestore.rules_template_5 file to update ```firestore.rules```.
 ```bash
-cp ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/rules-examples/firestore.rules_template_5 \
-   ~/rules-tutorial/quickstart-nodejs/cs-walkthrough/firestore.rules
+cp ~/rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.rules_template_5 \
+   ~/rules-tutorial/quickstart-testing/cs-walkthrough/firestore.rules
 ```
 
 4.  Run the tests again.

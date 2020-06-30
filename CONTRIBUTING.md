@@ -31,7 +31,7 @@ See [below](#submit) for some guidelines.
 ### Submitting a Pull Request
 Before you submit your pull request consider the following guidelines:
 
-* Search [GitHub](https://github.com/firebase/quickstart-nodejs/pulls) for an open or closed Pull Request
+* Search [GitHub](https://github.com/firebase/quickstart-testing/pulls) for an open or closed Pull Request
   that relates to your submission. You don't want to duplicate effort.
 * Please sign our [Contributor License Agreement (CLA)](#cla) before sending pull
   requests. We cannot accept code without this.
