@@ -1,7 +1,8 @@
 {
   "packages": [
-    "unit-test-security-rules",
-    "manual-emulator-testing"
+    "manual-emulator-testing",
+    "unit-test-cloud-functions/functions",
+    "unit-test-security-rules"
   ],
   "version": "0.0.0"
 }

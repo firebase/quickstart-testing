@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Firebase testing samples",
   "scripts": {
-    "format": "prettier --write **/*.js"
+    "format": "prettier --write **/*.js",
+    "test": "lerna run test"
   },
   "repository": {
     "type": "git",
@@ -11,6 +12,7 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
+    "firebase-tools": "^8.4.3",
     "lerna": "^3.22.1",
     "prettier": "^2.0.5"
   }

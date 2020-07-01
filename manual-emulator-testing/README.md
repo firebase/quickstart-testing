@@ -14,7 +14,7 @@ You will also need the [Firebase CLI](https://firebase.google.com/docs/cli).
 First start the emulators:
 
 ```
-firebase --project=manual-emulator-testing emulators:start 
+firebase --project=fakeproject emulators:start 
 ```
 
 Next visit `http://localhost:5000` in your browser and you should see a 

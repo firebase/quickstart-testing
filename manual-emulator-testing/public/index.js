@@ -17,7 +17,7 @@
 // Initialze Firestore pointing at our test project
 const db = firebase
   .initializeApp({
-    projectId: "manual-emulator-testing",
+    projectId: "fakeproject",
   })
   .firestore();
 
