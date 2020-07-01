@@ -73,5 +73,5 @@ describe("Unit tests", () => {
     expect(snap.data()).to.eql({
       text: "HELLO WORLD",
     });
-  });
+  }).timeout(5000);
 });
