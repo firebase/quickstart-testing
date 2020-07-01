@@ -1,0 +1,39 @@
+//********************************************
+// If you need to restart the walkthrough for
+// any reason, at the Cloud Shell prompt
+// run 'cd ~/rules-tutorial/quickstart-testing/cs-walkthrough/ ; ./walkthrough.sh; cd -'
+//********************************************
+
+rules_version = '2';
+service cloud.firestore {
+
+  match /databases/{database}/documents {
+    match /carts/{cartID} {
+      allow create: if request.auth.uid == request.resource.data.ownerUID;
+      allow read, update, delete: if request.auth.uid == resource.data.ownerUID;
+    }
+ 
+  // Let's talk about adding 'item' documents to a cart. We can write a rule that
+  // allows writing an 'item' if the current user has the same UID as the ownerUID
+  // on the 'cart' document.
+  //
+  // Here our 'match' statement applies to documents in the 'items' collection,
+  // but we need data from the 'carts' collection to define security. That's where
+  // the 'get' operation in the conditional comes in. Use 'get' to access documents
+  // outside the 'match' path you're working in. Here we use it to get the
+  // the ownerUID on the 'cart' document.
+  // UNCOMMENT THE FOLLOWING LINES.
+  // match /carts/{cartID}/items/{itemID} {
+  //   allow write: if 
+  //      get(/databases/$(database)/documents/carts/$(cartID))
+  //      .data.ownerUID == request.auth.uid;
+  // }
+  // AND SAVE THE FILE: FILE > SAVE.
+ 
+  match /items/{itemID} {
+      allow read; // Users can read items
+      // Never do this in production
+      allow create;
+    }
+  }
+}
