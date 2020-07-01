@@ -9,7 +9,6 @@ const admin = require("firebase-admin");
 // communicate with the emulators, not production.
 const test = require("firebase-functions-test")({
   projectId: process.env.GCLOUD_PROJECT,
-  databaseURL: process.env.FIREBASE_DATABASE_EMULATOR_HOST,
 });
 
 // Import the exported function definitions from our functions/index.js file
