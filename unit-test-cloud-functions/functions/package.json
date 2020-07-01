@@ -3,7 +3,7 @@
   "description": "Cloud Functions for Firebase",
   "scripts": {
     "test": "mocha test/*.spec.js",
-    "test:ci": "firebase --project=fakeproject emulators:exec 'npm run test'"
+    "test:ci": "firebase --project=fakeproject --debug emulators:exec 'npm run test'"
   },
   "engines": {
     "node": "10"
