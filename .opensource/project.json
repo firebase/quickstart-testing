@@ -1,0 +1,20 @@
+{
+    "name": "Firebase Testing Quickstarts",
+    "platforms": [
+      "Android",
+      "iOS",
+      "Web",
+      "Node"
+    ],
+    "content": "README.md",
+    "pages" : {
+        "manual-emulator-testing/README.md": "Manual emulator testing",
+        "unit-test-cloud-functions/README.md": "Unit test Cloud Functions",
+        "unit-test-security-rules/README.md": "Unit test Security Rules"
+    },
+    "related": [
+      "firebase/firebase-functions-test",
+      "firebase/firebase-tools"
+    ]   
+}
+  
