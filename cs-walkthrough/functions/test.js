@@ -36,7 +36,7 @@ before(async () => {
   // Load the content of the "firestore.rules" file into the emulator before running the
   // test suite. This is necessary because we are using a fake Project ID in the tests,
   // so the rules "hot reloading" behavior which works in the Web App does not apply here.
-  const rulesContent = fs.readFileSync(path.resolve(__dirname, "../firestore.rules"));
+  const rulesContent = fs.readFileSync(path.resolve(__dirname, "../firestore.rules"), "utf-8");
   await firebase.loadFirestoreRules({
     projectId: TEST_FIREBASE_PROJECT_ID,
     rules: rulesContent
