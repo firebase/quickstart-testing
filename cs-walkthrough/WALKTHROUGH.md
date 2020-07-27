@@ -18,7 +18,7 @@ To get started with the walkthrough...well, click `Start` below.
 
 Let's check some tutorial samples out from GitHub and some tools out of npm. 
 
-![Copy to Cloud Shell control](https://firebase.devsite.corp.google.com/docs/rules/images/la_copy_to_shell.png "Copy to Cloud Shell control") -- in the snippets below, use this control to paste commands straight to the Cloud Shell prompt.
+![Copy to Cloud Shell control](https://firebase.google.com/docs/rules/images/la_copy_to_shell.png "Copy to Cloud Shell control") -- in the snippets below, use this control to paste commands straight to the Cloud Shell prompt.
 
 1.  Set up a directory structure to organize tutorial project files plus your own project(s).
 
@@ -140,7 +140,7 @@ Our tests are written with a simple eCommerce app in mind. We have ```users```, 
 
 The emulated Firestore database for our tests will be created as we go, populated then deleted at each execution of the test suite, by the Firebase Test SDK.
 
-![Copy to Cloud Shell control](https://firebase.devsite.corp.google.com/docs/rules/images/cs_walkthrough_datamodel.png "eCommerce Data Model for Security Rules Walkthrough")
+![Copy to Cloud Shell control](https://firebase.google.com/docs/rules/images/cs_walkthrough_datamodel.png "eCommerce Data Model for Security Rules Walkthrough")
 
 Note that the data model contains collections (`carts` and `items`) and documents within those collections (`alicesCart` and `lemon`). You can review the [documentation about Firestore hierarchical data models](https://firebase.google.com/docs/firestore/data-model#hierarchical-data).
 
@@ -292,7 +292,7 @@ OK, so we've:
 At this point, we recommend you:
 
 +   Learn more about Firebase Local Emulator Suite, including how to install and include it in your continuous integration environment, as well as how to use it for mobile app prototyping and testing. These topics [are covered in the documentation](https://firebase.google.com/docs/emulator-suite).
-+   Compare this experience of debugging Security Rules with the Emulator Suite to the experience of Rules debugging in the Security Rules Simulator. Each tool has its value. You can find the Simulator in the [Rules tab in Firebase console](https://firebase.corp.google.com/project/_/database/firestore/rules).
++   Compare this experience of debugging Security Rules with the Emulator Suite to the experience of Rules debugging in the Security Rules Simulator. Each tool has its value. You can find the Simulator in the [Rules tab in Firebase console](https://firebase.google.com/project/_/database/firestore/rules).
 
 **The Firebase console is likely still open in your browser. To complete this walkthrough and close Cloud Shell, simply close this browser tab.**
 
