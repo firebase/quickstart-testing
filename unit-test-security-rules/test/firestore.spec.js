@@ -51,7 +51,7 @@ after(async () => {
   // Delete all the FirebaseApp instances created during testing
   // Note: this does not affect or clear any data
   await Promise.all(firebase.apps().map((app) => app.delete()));
-  console.log(`View rule coverage information at ${COVERAGE_URL}\n`);
+  console.log(`View firestore rule coverage information at ${COVERAGE_URL}\n`);
 });
 
 describe("My app", () => {

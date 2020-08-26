@@ -62,7 +62,7 @@ beforeEach(async () => {
 after(async () => {
   // Close any open apps
   await Promise.all(firebase.apps().map((app) => app.delete()));
-  console.log(`View rule coverage information at ${COVERAGE_URL}\n`);
+  console.log(`View database rule coverage information at ${COVERAGE_URL}\n`);
 });
 
 describe("profile read rules", () => {
