@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const firebase = require("@firebase/testing");
+const firebase = require("@firebase/rules-unit-testing");
 const fs = require("fs");
 
 /**
