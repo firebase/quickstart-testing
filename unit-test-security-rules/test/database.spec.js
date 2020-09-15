@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const firebase = require("@firebase/testing");
+const firebase = require("@firebase/rules-unit-testing");
+const http = require("http");
 const fs = require("fs");
 
 /**
@@ -62,7 +63,20 @@ beforeEach(async () => {
 after(async () => {
   // Close any open apps
   await Promise.all(firebase.apps().map((app) => app.delete()));
-  console.log(`View rule coverage information at ${COVERAGE_URL}\n`);
+
+  // Write the coverage report to a file
+  const coverageFile = 'database-coverage.html';
+  const fstream = fs.createWriteStream(coverageFile);
+  await new Promise((resolve, reject) => {
+      http.get(COVERAGE_URL, (res) => {
+        res.pipe(fstream, { end: true });
+
+        res.on("end", resolve);
+        res.on("error", reject);
+      });
+  });
+
+  console.log(`View database rule coverage information at ${coverageFile}\n`);
 });
 
 describe("profile read rules", () => {

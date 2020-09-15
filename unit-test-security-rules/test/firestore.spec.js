@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const firebase = require("@firebase/testing");
+const firebase = require("@firebase/rules-unit-testing");
 const fs = require("fs");
+const http = require("http");
 
 /**
  * The emulator will accept any project ID for testing.
@@ -51,7 +52,20 @@ after(async () => {
   // Delete all the FirebaseApp instances created during testing
   // Note: this does not affect or clear any data
   await Promise.all(firebase.apps().map((app) => app.delete()));
-  console.log(`View rule coverage information at ${COVERAGE_URL}\n`);
+
+  // Write the coverage report to a file
+  const coverageFile = 'firestore-coverage.html';
+  const fstream = fs.createWriteStream(coverageFile);
+  await new Promise((resolve, reject) => {
+      http.get(COVERAGE_URL, (res) => {
+        res.pipe(fstream, { end: true });
+
+        res.on("end", resolve);
+        res.on("error", reject);
+      });
+  });
+
+  console.log(`View firestore rule coverage information at ${coverageFile}\n`);
 });
 
 describe("My app", () => {

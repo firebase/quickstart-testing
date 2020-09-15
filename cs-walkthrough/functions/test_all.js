@@ -17,7 +17,7 @@ const path = require("path");
 const FIREBASE_PROJECT_ID = "something"
 const TEST_FIREBASE_PROJECT_ID = "test-firestore-rules-project";
 
-const firebase = require("@firebase/testing");
+const firebase = require("@firebase/rules-unit-testing");
 
 const seedItems = {
   "chocolate": 4.99,
