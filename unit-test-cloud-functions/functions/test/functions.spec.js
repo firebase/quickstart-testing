@@ -4,7 +4,7 @@ const admin = require("firebase-admin");
 // Initialize the firebase-functions-test SDK using environment variables.
 // These variables are automatically set by firebase emulators:exec
 //
-// This configuration will be used to initialie the Firebase Admin SDK, so
+// This configuration will be used to initialize the Firebase Admin SDK, so
 // when we use the Admin SDK in the tests below we can be confident it will
 // communicate with the emulators, not production.
 const test = require("firebase-functions-test")({
