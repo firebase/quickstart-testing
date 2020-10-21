@@ -4,6 +4,6 @@
   "scripts": {},
   "license": "Apache-2.0",
   "devDependencies": {
-    "firebase-tools": "^8.12.1"
+    "firebase-tools": "^8.13.0"
   }
 }
