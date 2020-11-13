@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-// Initialze Firestore pointing at our test project
-const db = firebase
-  .initializeApp({
-    projectId: "fakeproject",
-  })
-  .firestore();
+// Initialze Firebase pointing at our test project
+firebase.initializeApp({
+  projectId: "fakeproject",
+  apiKey: "fakeApiKey"
+});
+
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+// Connect Firebase Auth to the local emulator
+auth.useEmulator("http://localhost:9099");
 
 // Connect the Firestore SDK to the local emulator
-db.settings({
-  host: "localhost:8080",
-  ssl: false,
-});
+db.useEmulator("localhost", 8080);
 
 // Use Vue.js to populate the UI with data
 //
@@ -34,8 +36,11 @@ db.settings({
 const app = new Vue({
   el: "#app",
   data: {
+    currentUser: null,
     messages: [],
     msgInput: "",
+    emailInput: "",
+    passwordInput: "",
   },
   methods: {
     submit: function () {
@@ -47,14 +52,51 @@ const app = new Vue({
 
       this.msgInput = "";
     },
+    signUp: async function() {
+      console.log("Attempting sign up as", this.emailInput);
+      try {
+        const user = await auth.createUserWithEmailAndPassword(this.emailInput, this.passwordInput);
+        this.setUser(user);
+      } catch (e) {
+        console.warn(e);
+      }
+    },
+    signIn: async function() {
+      console.log("Attempting sign in as", this.emailInput);
+      try {
+        const user = await auth.signInWithEmailAndPassword(this.emailInput, this.passwordInput);
+        this.setUser(user);
+      } catch (e) {
+        console.warn(e);
+      }
+    },
+    setUser: function (user) {
+      this.currentUser = user;
+      if (user != null) {
+        console.log("Signed in as ", user);
+
+        // Listen to the messages collection
+        db.collection("messages")
+          .orderBy("time", "asc")
+          .onSnapshot((snap) => {
+            console.log("Got data from firestore!");
+            this.messages = snap.docs.map((doc) => doc.data());
+          });
+      }
+    }
+  },
+  computed: {
+    signedIn: function () {
+      return this.currentUser !== null;
+    }
   },
   created: function () {
-    // Listen to the messages collection
-    db.collection("messages")
-      .orderBy("time", "asc")
-      .onSnapshot((snap) => {
-        console.log("Got data from firestore!");
-        this.messages = snap.docs.map((doc) => doc.data());
-      });
+    // Listen to auth state
+    this.setUser(auth.currentUser);
+    auth.onAuthStateChanged((user) => {
+      this.setUser(user);
+    });
+
+
   },
 });
