@@ -24,30 +24,40 @@
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
   </head>
 
   <body>
     <div id="app">
-      <h4>Messages</h4>
-      <ul>
-        <li 
-          v-for="(msg, index) in messages"
-          v-bind:key="index">
-          {{ msg.text }}
-        </li>
-      </ul>
+      <div v-if="!signedIn">
+        <h4>Sign In</h4>
+        <form style="padding-top: 12px; padding-bottom: 12px;">
+          <input v-model="emailInput" type="email" placeholder="Email" autofocus></textarea>
+          <input v-model="passwordInput" type="password" placeholder="Password"></textarea>
+          <button v-on:click.prevent="signIn()">Sign In</button>
+          <button v-on:click.prevent="signUp()">Sign Up</button>
+        </form>
+      </div>
 
-      <br />
+      <div v-else>
+        <h4>Messages</h4>
+        <ul>
+          <li 
+            v-for="(msg, index) in messages"
+            v-bind:key="index">
+            {{ msg.text }}
+          </li>
+        </ul>
 
-      <form>
-        <input v-model="msgInput" type="text" placeholder="Add a message..." autofocus></textarea>
-        <button v-on:click.prevent="submit()">Submit</button>
-      </form>
+        <form style="padding-top: 12px; padding-bottom: 12px;">
+          <input v-model="msgInput" type="text" placeholder="Add a message..." autofocus></textarea>
+          <button v-on:click.prevent="submit()">Submit</button>
+        </form>
+      </div>
+      
 
-      <br />
-
-      <a href="http://localhost:4000/firestore" style="font-size: 9pt;" target="_blank">View data in the Emulator UI</a>
+      <a href="http://localhost:4000/" style="font-size: 9pt;" target="_blank">View data in the Emulator UI</a>
     </div>
     <script src="/index.js"></script>
   </body>
