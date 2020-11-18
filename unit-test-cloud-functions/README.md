@@ -13,5 +13,5 @@ You will also need the [Firebase CLI](https://firebase.google.com/docs/cli).
 To run the tests:
 
 ```
-firebase emulators:exec --project=fakeproject' npm run test'
+firebase emulators:exec --project=fakeproject 'npm run test'
 ```
