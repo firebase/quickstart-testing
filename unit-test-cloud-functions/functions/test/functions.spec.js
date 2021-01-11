@@ -19,22 +19,26 @@ describe("Unit tests", () => {
     test.cleanup();
   });
 
-  it("tests a simple HTTP function", (done) => {
+  it("tests a simple HTTP function", async () => {
     // A fake request object, with req.query.text set to 'input'
     const req = { query: { text: "input" } };
 
-    // A fake response object, with a stubbed send() function which asserts that it is called
-    // with the right result
-    const res = {
-      send: (text) => {
-        expect(text).to.eq(`text: input`);
-        done();
-      },
-    };
+    const sendPromise = new Promise((resolve) => {
+      // A fake response object, with a stubbed send() function which asserts that it is called
+      // with the right result
+      const res = {
+        send: (text) => {
+          resolve(text);
+        }
+      };
 
-    // Invoke function with our fake request and response objects. This will cause the
-    // assertions in the response object to be evaluated.
-    myFunctions.simpleHttp(req, res);
+      // Invoke function with our fake request and response objects.
+      myFunctions.simpleHttp(req, res)
+    });
+
+    // Wait for the promise to be resolved and then check the sent text
+    const text = await sendPromise;
+    expect(text).to.eq(`text: input`);
   });
 
   it("tests a simple callable function", async () => {
