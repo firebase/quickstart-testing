@@ -78,4 +78,26 @@ describe("Unit tests", () => {
       text: "HELLO WORLD",
     });
   }).timeout(5000);
+
+  it("tests an Auth function that interacts with Firestore", async () => {
+    const wrapped = test.wrap(myFunctions.userSaver);
+
+    // Make a fake user to pass to the function
+    const uid = `${new Date().getTime()}`;
+    const email = `user-${uid}@example.com`;
+    const user = test.auth.makeUserRecord({
+      uid,
+      email,
+    });
+
+    // Call the function
+    await wrapped(user);
+
+    // Check the data was written to the Firestore emulator
+    const snap = await admin.firestore().collection("users").doc(uid).get();
+    const data = snap.data();
+
+    expect(data.uid).to.eql(uid);
+    expect(data.email).to.eql(email);
+  }).timeout(5000);
 });
