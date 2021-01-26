@@ -36,3 +36,15 @@ exports.firestoreUppercase = functions.firestore
       text: lowercase.toUpperCase(),
     });
   });
+
+/**
+ * Auth-triggered function which writes a user document to Firestore.
+ */
+exports.userSaver = functions.auth.user().onCreate(async (user, ctx) => {
+  const firestore = admin.firestore();
+  
+  // Make a document in the user's collection with everything we know about the user
+  const userId = user.uid;
+  const userRef = firestore.collection("users").doc(userId);
+  await userRef.set(user.toJSON());
+});
