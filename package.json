@@ -21,6 +21,8 @@
       "web-tools:misc:entify",
       "web-tools:misc:js-chars",
       "web-tools:misc:collapse-lines",
+      "web-tools:misc:getPath",
+      "web-tools:misc:copyProfile",
       "web-tools:misc:sample",
       "web-tools:misc:replace"
     ]

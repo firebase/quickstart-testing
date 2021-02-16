@@ -5,6 +5,7 @@
   "-W097": false,
   "-W083": true,
   "-W084": true,
+  "-W033": true,
   "eqeqeq": false,
   "shadow": true,
   "sub": true,

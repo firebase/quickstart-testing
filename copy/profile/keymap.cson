@@ -1,0 +1,26 @@
+# Your keymap
+#
+# http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
+
+#	https://nuclide.io/docs/advanced-topics/custom-keybindings/
+
+#	macOS
+	'.platform-darwin atom-text-editor:not([mini])':
+		'cmd-D': 'editor:duplicate-lines'
+		'cmd-W': 'editor:toggle-soft-wrap'
+		'cmd-U': 'editor:upper-case'
+		'cmd-L': 'editor:lower-case'
+		'cmd-enter': 'script:run'
+
+#	Windows
+	'.platform-win32 atom-text-editor:not([mini])':
+		'ctrl-D': 'editor:duplicate-lines'
+		'ctrl-W': 'editor:toggle-soft-wrap'
+		'ctrl-U': 'editor:upper-case'
+		'ctrl-L': 'editor:lower-case'
+		'ctrl-enter': 'script:run'
+
+#	General
+	'atom-text-editor:not([mini])':
+		'shift-enter': 'web-tools:shift-enter-no-indent',
+		'f5': 'unset!'
