@@ -1,8 +1,8 @@
 {
-  "name": "web-tools",
+  "name": "web-developer-tools",
   "main": "./lib/web-tools",
-  "version": "0.5.2",
-  "description": "A Set of Tools to work with HTML",
+  "version": "0.1.0",
+  "description": "A Set of Tools to work with Web Development",
   "keywords": [],
   "activationCommands": {
     "atom-workspace": [
