@@ -1,4 +1,4 @@
-# Web Tools
+# Web Developer Tools
 
 This Atom Package simplifies some of the processing of hand-coding HTML.
 
