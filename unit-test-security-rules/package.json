@@ -10,7 +10,7 @@
   "devDependencies": {
     "@firebase/rules-unit-testing": "^1.2.0",
     "firebase-admin": "^9.5.0",
-    "firebase-tools": "^9.3.0",
+    "firebase-tools": "^9.4.0",
     "mocha": "^8.0.1"
   }
 }
