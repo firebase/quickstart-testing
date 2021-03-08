@@ -66,7 +66,7 @@ describe("Unit tests", () => {
       {
         text: "hello world",
       },
-      "/collection/foo"
+      "/lowercase/foo"
     );
 
     // Call the function
