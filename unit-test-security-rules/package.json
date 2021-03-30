@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@firebase/rules-unit-testing": "^1.2.5",
-    "firebase-admin": "^9.5.0",
+    "firebase-admin": "^9.6.0",
     "firebase-tools": "^9.8.0",
     "mocha": "^8.0.1"
   }
