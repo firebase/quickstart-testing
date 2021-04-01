@@ -19,7 +19,7 @@
     "firebase-functions": "^3.13.2"
   },
   "devDependencies": {
-    "@firebase/rules-unit-testing": "^1.2.5",
+    "@firebase/rules-unit-testing": "^1.2.6",
     "eslint": "^5.12.0",
     "eslint-plugin-promise": "^4.0.1",
     "firebase-functions-test": "^0.2.3",
