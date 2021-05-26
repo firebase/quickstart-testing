@@ -1,0 +1,29 @@
+{
+	"label": "Special Files",
+	"submenu": [
+		{
+			"label": "init.js",
+			"command": "web-tools:open:init.js"
+		},
+		{
+			"label": "keymap.cson",
+			"command": "web-tools:open:keymap.cson"
+		},
+		{
+			"label": "hosts",
+			"command": "web-tools:open:hosts"
+		},
+		{
+			"label": "httpd.conf",
+			"command": "web-tools:open:httpd.conf"
+		},
+		{
+			"label": "vhosts.conf",
+			"command": "web-tools:open:vhosts.conf"
+		},
+		{
+			"label": "php.ini",
+			"command": "web-tools:open:php.ini"
+		}
+	]
+}
