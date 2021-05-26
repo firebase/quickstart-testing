@@ -1,0 +1,18 @@
+{
+  "name": "unit-test-security-rules",
+  "version": "1.0.0",
+  "scripts": {
+    "test-database": "mocha --exit test/database.spec.mjs",
+    "test-firestore": "mocha --exit test/firestore.spec.mjs",
+    "test": "mocha --exit test/*.spec.mjs"
+  },
+  "engines": {
+    "node": ">= 13.2.0"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "firebase": "^9.0.0-beta.1",
+    "firebase-admin": "^9.100.0-alpha.0",
+    "mocha": "^8.3.2"
+  }
+}
