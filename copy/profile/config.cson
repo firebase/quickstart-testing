@@ -1,0 +1,16 @@
+"*":
+  core:
+    telemetryConsent: "no"
+    themes: [
+      "atom-light-ui"
+      "atom-light-syntax"
+    ]
+    uriHandlerRegistration: "always"
+  editor:
+    softTabs: false
+    tabLength: 4
+    tabType: "hard"
+  "exception-reporting":
+    userId: "7d0d23d5-343f-4f6a-9411-f26a482b1102"
+  welcome:
+    showOnStartup: false

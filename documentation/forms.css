@@ -1,0 +1,74 @@
+/** /
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
+// for a full listing of what's available.
+//	/Volumes/Macintosh HD/Applications/Atom.app/Contents/Resources/app/static/variables/ui-variables.less
+
+/**/
+
+/*	Import Theme Colours
+	================================================ */
+
+	@import "../styles/current-ui-variables.css";
+
+/**/
+	html {
+
+	}
+	body {
+		background-color: rgb(236, 236, 236);
+		background-color: var(--base-border-color);
+		width: 478px;
+		margin: 0 auto;
+		font-size: var(--font-size);
+	}
+/**/
+
+	form#web-tools {
+		padding: 1em;
+		font-family: var(--font-family);
+		background-color: var(--app-background-color);
+		box-sizing: border-box;
+	}
+	form#web-tools label {
+		font-weight: normal;
+		margin-left: 1em;
+	}
+	form#web-tools fieldset {
+		border: thin solid var(--text-color-subtle);
+		border-style: solid none none none;
+		padding: .25em 1em;
+		margin: 0 0 .25em 0;
+	}
+	form#web-tools fieldset legend {
+		display: inline;
+		font-weight: bold;
+		padding: .25em .5em;
+		color: var(--base-background-color);
+		background-color: var(--text-color-subtle);
+	}
+	form#web-tools fieldset+div {
+		box-sizing: border-box;
+		padding: .5em 0 0 0;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		border: thin solid var(--text-color-subtle);
+		border-style: solid none none none;
+	}
+	form#web-tools fieldset+div>button {
+		width: 8em;
+		border: thin solid var(--text-color-subtle);
+		padding: .5em;
+		background-color: var(--text-color-subtle);
+		color: var(--base-background-color);
+		font-size: 1em;
+	}
+	form#web-tools input[type="text"] {
+		margin: .25em 0 .5em 0;
+	}
+	form#web-tools input[type="radio"],
+	form#web-tools input[type="checkbox"]{
+		margin: 0 .75em 0 0;
+	}

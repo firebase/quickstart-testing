@@ -1,0 +1,137 @@
+{
+	"context-menu": {
+		"atom-text-editor": [
+			{
+				"label": "Convert …",
+				"submenu": [
+					{
+						"label": "Paragraphs",
+						"command": "web-tools:html:paragraphs"
+					},
+					{
+						"label": "Headings and Paragraphs",
+						"command": "web-tools:html:paragraphs-headings"
+					},
+					{
+						"label": "HTML Structure",
+						"command": "web-tools:html:structure"
+					},
+					{
+						"label": "Lists …",
+						"command": "web-tools:html:lists"
+					},
+					{
+						"label": "Tables …",
+						"command": "web-tools:tables"
+					},
+					{
+						"label": "HTML Structure",
+						"command": "web-tools:html:structure"
+					},
+					{
+						"label": "Anchors",
+						"command": "web-tools:html:anchors"
+					}
+				]
+			}
+		]
+	},
+	"menu": [
+		{
+			"label": "Packages",
+			"submenu": [
+				{
+					"label": "Web Developer Tools",
+					"submenu": [
+						{
+							"label": "About …",
+							"command": "web-tools:about"
+						},
+						{
+							"label": "Convert …",
+							"submenu": [
+								{
+									"label": "Paragraphs",
+									"command": "web-tools:html:paragraphs"
+								},
+								{
+									"label": "Headings and Paragraphs",
+									"command": "web-tools:html:paragraphs-headings"
+								},
+								{
+									"label": "HTML Structure",
+									"command": "web-tools:html:structure"
+								},
+								{
+									"label": "Lists …",
+									"command": "web-tools:html:lists"
+								},
+								{
+									"label": "Tables …",
+									"command": "web-tools:tables"
+								},
+								{
+									"label": "Anchors",
+									"command": "web-tools:html:anchors"
+								}
+							]
+						},
+						{
+							"label": "Insert …",
+							"command": "web-tools:html:insert"
+						},
+						{
+							"label": "Miscellaneous",
+							"submenu": [
+								{
+									"label": "Spaces to Tabs",
+									"command": "web-tools:misc:spaces-tabs"
+								},
+								{
+									"label": "Smart Quotes",
+									"command": "web-tools:misc:smart-quotes"
+								},
+								{
+									"label": "HTML Entify",
+									"command": "web-tools:misc:entify"
+								},
+								{
+									"label": "Convert Document to HTML5",
+									"command": "web-tools:html:html5"
+								},
+								{
+									"label": "Convert String to JavaScript",
+									"command": "web-tools:misc:js-chars"
+								},
+								{
+									"label": "Convert CSS Color Literals",
+									"command": "web-tools:css:colors"
+								},
+								{
+									"label": "Collapse Lines",
+									"command": "web-tools:misc:collapse-lines"
+								},
+								{
+									"label": "Create Sample File",
+									"command": "web-tools:misc:sample"
+								},
+								{
+									"label": "Get Path Name",
+									"command": "web-tools:misc:getPath"
+								},
+								{
+									"label": "Copy Default Settings",
+									"command": "web-tools:misc:copyProfile"
+								},
+								{
+									"label": "Find and Replace",
+									"command": "web-tools:misc:replace"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

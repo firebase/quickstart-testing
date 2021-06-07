@@ -1,28 +1,63 @@
-# Firebase Testing Quickstarts
+# Web Developer Tools
 
-A collection of quickstart samples demonstrating testing patterns for Firebase services.
+This Atom Package simplifies some of the processing of hand-coding HTML.
 
-The repository is broken up by testing strategy:
+The various tools either replace selected text with HTML code which would be more tedious to type or, in some cases, inserts snippets of HTML.
 
-  * **[Unit testing security rules](unit-test-security-rules/README.md)** - 
-  write unit tests for your Realtime Database and Cloud Firestore security
-  rules using `mocha` and the `@firebase/rules-unit-testing` library.
-  * **[Unit testing Cloud Functions](unit-test-cloud-functions/README.md)** -
-  write unit tests for your Cloud Functions using the `firebase-functions-test` SDK.
-  * **[Connect your app to the Emulator Suite](manual-emulator-testing/README.md)** -
-  connect the Firebase SDKs in your app directly to the local emulators and manually
-  test your app.
+There are also some additional tools to help with setting up pages and some common preferences.
 
-## How to make contributions?
+## Convert …
 
-Please read and follow the steps in the [CONTRIBUTING.md](CONTRIBUTING.md)
+This is also available from the `right-click` menu.
 
-## License
-See [LICENSE](LICENSE)
+These tools will convert and replace selected text:
 
-## Build Status
+| Convert …               | Action                                |
+|-------------------------|---------------------------------------|
+| Paragraphs              | Convert text to paragraphs            |
+| Headings and Paragraphs | Convert text to Headings & Paragraphs |
+| HTML Structure          | Generate HTML from selected text      |
+| Lists                   | Create Lists                          |
+| Tables                  | Convert to HTML Table;<br>Can also be used for Markdown,<br>AsciiDoc and Text tables                       |
+| Anchors                 | Convert to HTML Anchors (links)       |
 
-[![Actions Status][gh-actions-badge]][gh-actions]
+## Insert …
 
-[gh-actions]: https://github.com/firebase/quickstart-testing/actions
-[gh-actions-badge]: https://github.com/firebase/quickstart-testing/workflows/CI%20Tests/badge.svg
+Insert HTML links to various files in your web folder.
+
+| Insert …        | Link                                                     |
+|-----------------|----------------------------------------------------------|
+| Image           | `<img src="…" alt=="…" title="…" width="…" height=="…">` |
+| JavaScript      | `<script type="text/javascript" src="…"></script>`       |
+| CSS Style Sheet | `<link rel="stylesheet" type="text/css" href="…">`       |
+| Anchor          | `<a href="…">…</a>`                                      |
+
+When selected:
+
+1. Choose the type of link
+2. A File Open dialog will appear; choose a file
+3. Fill in any other options
+
+If you cancel the File Open dialog, the corresponding `src` or `href` will be empty. This is especially useful if you need to link to a full URL.
+
+## Miscellaneous
+
+Miscellaenous document-related tools.
+
+| Tool           | Action                                                                                       |
+|----------------|----------------------------------------------------------------------------------------------|
+| Spaces to Tabs | This simply converts multiple spaces to tabs, using the tool from the __Whitespace__ package |
+| Smart Quotes   | Converts the "straight quotes" in the selected text to “Smart Quotes”                        |
+| Entify         | Converts `<`, `>`, `&` and possibly `'` & `"` to HTML Entities |
+
+### Additional Keyboard Function
+
+There is additional functionality to add a new line without indenting. To finish the job, you need to add the following in you `~/.atom/keymap.cson` file:
+
+```
+'atom-workspace atom-text-editor:not([mini])':
+	…
+	'shift-enter': 'web-tools:shift-enter-no-indent',
+```
+
+See [HOWTO](HOWTO.md) for details on how to use the tools
