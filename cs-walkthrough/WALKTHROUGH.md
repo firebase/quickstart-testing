@@ -207,6 +207,8 @@ npm --prefix=functions test
 
 Great, 1 test passed, 3 more to go.
 
+<walkthrough-inline-feedback></walkthrough-inline-feedback>
+
 ## Let users read, update and delete their carts
 
 The next test covers the case of a cart owner having the ability to read, update, or delete their cart.
