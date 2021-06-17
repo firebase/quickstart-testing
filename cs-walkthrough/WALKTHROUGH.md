@@ -205,14 +205,12 @@ cp ~/rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.r
 npm --prefix=functions test
 ```
 
-Great, 1 test passed, 3 more to go.
-<br/>
-<br/>
+Great, 1 test passed, 3 more to go.&nbsp;
+&nbsp;
+
 **Before we continue, let us know what you think so far.**
 
-<walkthrough-inline-feedback></walkthrough-inline-feedback>&nbsp;
-
-&nbsp;
+<walkthrough-inline-feedback></walkthrough-inline-feedback>
 
 ## Let users read, update and delete their carts
 
