@@ -207,6 +207,7 @@ npm --prefix=functions test
 
 Great, 1 test passed, 3 more to go.
 
+
 **Before we continue, let us know what you think so far.**
 
 <walkthrough-inline-feedback></walkthrough-inline-feedback>
