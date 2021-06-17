@@ -210,7 +210,9 @@ Great, 1 test passed, 3 more to go.
 <br/>
 **Before we continue, let us know what you think so far.**
 
-<walkthrough-inline-feedback></walkthrough-inline-feedback>
+<walkthrough-inline-feedback></walkthrough-inline-feedback>&nbsp;
+
+&nbsp;
 
 ## Let users read, update and delete their carts
 
