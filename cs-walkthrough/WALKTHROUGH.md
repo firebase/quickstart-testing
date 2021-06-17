@@ -205,9 +205,7 @@ cp ~/rules-tutorial/quickstart-testing/cs-walkthrough/rules-examples/firestore.r
 npm --prefix=functions test
 ```
 
-Great, 1 test passed, 3 more to go.&nbsp;
-&nbsp;
-&nbsp;
+Great, 1 test passed, 3 more to go.
 
 **Before we continue, let us know what you think so far.**
 
