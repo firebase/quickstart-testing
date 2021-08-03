@@ -4,7 +4,7 @@ const admin = require("firebase-admin");
 // Initialize the firebase-functions-test SDK using environment variables.
 // These variables are automatically set by firebase emulators:exec
 //
-// This configuration will be used to initialie the Firebase Admin SDK, so
+// This configuration will be used to initialize the Firebase Admin SDK, so
 // when we use the Admin SDK in the tests below we can be confident it will
 // communicate with the emulators, not production.
 const test = require("firebase-functions-test")({
@@ -19,22 +19,26 @@ describe("Unit tests", () => {
     test.cleanup();
   });
 
-  it("tests a simple HTTP function", (done) => {
+  it("tests a simple HTTP function", async () => {
     // A fake request object, with req.query.text set to 'input'
     const req = { query: { text: "input" } };
 
-    // A fake response object, with a stubbed send() function which asserts that it is called
-    // with the right result
-    const res = {
-      send: (text) => {
-        expect(text).to.eq(`text: input`);
-        done();
-      },
-    };
+    const sendPromise = new Promise((resolve) => {
+      // A fake response object, with a stubbed send() function which asserts that it is called
+      // with the right result
+      const res = {
+        send: (text) => {
+          resolve(text);
+        }
+      };
 
-    // Invoke function with our fake request and response objects. This will cause the
-    // assertions in the response object to be evaluated.
-    myFunctions.simpleHttp(req, res);
+      // Invoke function with our fake request and response objects.
+      myFunctions.simpleHttp(req, res)
+    });
+
+    // Wait for the promise to be resolved and then check the sent text
+    const text = await sendPromise;
+    expect(text).to.eq(`text: input`);
   });
 
   it("tests a simple callable function", async () => {
@@ -62,7 +66,7 @@ describe("Unit tests", () => {
       {
         text: "hello world",
       },
-      "/collection/foo"
+      "/lowercase/foo"
     );
 
     // Call the function
@@ -73,5 +77,27 @@ describe("Unit tests", () => {
     expect(snap.data()).to.eql({
       text: "HELLO WORLD",
     });
+  }).timeout(5000);
+
+  it("tests an Auth function that interacts with Firestore", async () => {
+    const wrapped = test.wrap(myFunctions.userSaver);
+
+    // Make a fake user to pass to the function
+    const uid = `${new Date().getTime()}`;
+    const email = `user-${uid}@example.com`;
+    const user = test.auth.makeUserRecord({
+      uid,
+      email,
+    });
+
+    // Call the function
+    await wrapped(user);
+
+    // Check the data was written to the Firestore emulator
+    const snap = await admin.firestore().collection("users").doc(uid).get();
+    const data = snap.data();
+
+    expect(data.uid).to.eql(uid);
+    expect(data.email).to.eql(email);
   }).timeout(5000);
 });

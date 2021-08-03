@@ -2,14 +2,15 @@
   "name": "unit-test-security-rules",
   "version": "1.0.0",
   "scripts": {
-    "test-database": "mocha test/database.spec.js",
-    "test-firestore": "mocha test/firestore.spec.js",
-    "test": "mocha test/*.spec.js"
+    "test-database": "mocha --exit test/database.spec.js",
+    "test-firestore": "mocha --exit test/firestore.spec.js",
+    "test": "mocha --exit test/*.spec.js"
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@firebase/testing": "^0.20.5",
-    "firebase-tools": "^8.4.3",
+    "@firebase/rules-unit-testing": "^1.3.10",
+    "firebase-admin": "^9.11.0",
+    "firebase-tools": "^9.16.0",
     "mocha": "^8.0.1"
   }
 }

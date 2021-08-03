@@ -19,7 +19,7 @@ const TEST_FIREBASE_PROJECT_ID = "test-firestore-rules-project";
 // TODO: Change this to your real Firebase Project ID
 const REAL_FIREBASE_PROJECT_ID = "changeme";
 
-const firebase = require("@firebase/testing");
+const firebase = require("@firebase/rules-unit-testing");
 
 const seedItems = {
   "chocolate": 4.99,
@@ -55,9 +55,9 @@ describe("shopping carts", () => {
     auth: aliceAuth
   }).firestore();
 
-  after(() => {
+  after(async () => {
     // Clear data from the emulator
-    firebase.clearFirestoreData({ projectId: TEST_FIREBASE_PROJECT_ID });
+    await firebase.clearFirestoreData({ projectId: TEST_FIREBASE_PROJECT_ID });
   });
 
   it('can be created by the cart owner', async () => {
@@ -86,9 +86,9 @@ describe("shopping carts", async () => {
     });
   });
 
-  after(() => {
+  after(async () => {
     // Clear data from the emulator
-    firebase.clearFirestoreData({ projectId: TEST_FIREBASE_PROJECT_ID });
+    await firebase.clearFirestoreData({ projectId: TEST_FIREBASE_PROJECT_ID });
   });
 
   it("can be read, updated, and deleted by the cart owner", async () => {
@@ -120,9 +120,9 @@ describe("shopping cart items", async () => {
     }
   });
 
-  after(() => {
+  after(async () => {
     // Clear data from the emulator
-    firebase.clearFirestoreData({ projectId: TEST_FIREBASE_PROJECT_ID });
+    await firebase.clearFirestoreData({ projectId: TEST_FIREBASE_PROJECT_ID });
   });
 
   it("can be read by the cart owner", async () => {

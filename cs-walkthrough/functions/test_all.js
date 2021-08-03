@@ -14,10 +14,9 @@
 const fs = require('fs');
 const path = require("path");
 
-const FIREBASE_PROJECT_ID = "something"
 const TEST_FIREBASE_PROJECT_ID = "test-firestore-rules-project";
 
-const firebase = require("@firebase/testing");
+const firebase = require("@firebase/rules-unit-testing");
 
 const seedItems = {
   "chocolate": 4.99,
@@ -37,15 +36,16 @@ after(() => {
 });
 
 describe("shopping cart creation", () => {
-  const projectId = "cart-security-tests";
-  const admin = firebase.initializeAdminApp({ projectId}).firestore();
+  const admin = firebase.initializeAdminApp({
+    projectId: TEST_FIREBASE_PROJECT_ID
+  }).firestore();
   const db = firebase.initializeTestApp({
-    projectId: projectId,
+    projectId: TEST_FIREBASE_PROJECT_ID,
     auth: aliceAuth
   }).firestore();
 
   after(() => {
-    firebase.clearFirestoreData({projectId: "emulator-codelab-dev"});
+    firebase.clearFirestoreData({projectId: TEST_FIREBASE_PROJECT_ID});
   });
 
   it('can be created by the cart owner', async () => {

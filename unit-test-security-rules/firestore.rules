@@ -9,8 +9,8 @@ service cloud.firestore {
       allow read;
       // If you create a room, you must set yourself as the owner.
       allow create: if request.resource.data.owner == request.auth.uid;
-      // Only the room owner is allowed to modify it.
-      allow update: if resource.data.owner == request.auth.uid;
+      // Only the room owner is allowed to modify it, and owner mustn't be able to assign his room to other user.
+      allow update: if resource.data.owner == request.auth.uid && request.resource.data.owner == request.auth.uid;
     }
   }
 }
