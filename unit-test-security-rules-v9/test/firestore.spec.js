@@ -23,6 +23,10 @@ const { doc, getDoc, setDoc, serverTimestamp, setLogLevel } = require('firebase/
 
 /** @type testing.RulesTestEnvironment */
 let testEnv;
+/** @type testing.RulesTestContext */
+let unauthedDb;
+/** @type testing.RulesTestContext */
+let aliceDb;
 
 before(async () => {
   // Silence expected rules rejections from Firestore SDK. Unexpected rejections
@@ -32,6 +36,9 @@ before(async () => {
   testEnv = await initializeTestEnvironment({
     firestore: {rules: readFileSync('firestore.rules', 'utf8')},
   });
+
+  unauthedDb = testEnv.unauthenticatedContext().firestore();
+  aliceDb = testEnv.authenticatedContext('alice').firestore();
 });
 
 after(async () => {
@@ -59,38 +66,62 @@ beforeEach(async () => {
   await testEnv.clearFirestore();
 });
 
-describe("My Firestore security rules", () => {
+
+describe("Public user profiles", () => {
   it('should let anyone read any profile', async function() {
-    // Setup:
-    // Create documents in DB for testing (bypassing Security Rules).
+    // Setup: Create documents in DB for testing (bypassing Security Rules).
     await testEnv.withSecurityRulesDisabled(async (context) => {
       await setDoc(doc(context.firestore(), 'users/foobar'), { foo: 'bar' });
     });
 
-    // Then test our security rules by trying to read it using the client SDK.
-    const unauthedDb = testEnv.unauthenticatedContext().firestore();
+    // Then test security rules by trying to read it using the client SDK.
     await assertSucceeds(getDoc(doc(unauthedDb, 'users/foobar')));
   });
 
   it('should not allow users to read from a random collection', async () => {
-    const unauthedDb = testEnv.unauthenticatedContext().firestore();
-
     await assertFails(getDoc(doc(unauthedDb, 'foo/bar')));
   });
 
-  it("should only let users create their own profile", async () => {
-    const db = testEnv.authenticatedContext('alice').firestore();
-
-    await assertSucceeds(setDoc(doc(db, 'users/alice'), {
+  it("should allow ONLY signed in users to create their own profile with required `createdAt` field", async () => {
+    await assertSucceeds(setDoc(doc(aliceDb, 'users/alice'), {
       birthday: "January 1",
       createdAt: serverTimestamp(),
     }));
 
-    await assertFails(setDoc(doc(db, 'users/bob'), {
+    // Signed in user with required fields for others' profile
+    await assertFails(setDoc(doc(aliceDb, 'users/bob'), {
       birthday: "January 1",
       createdAt: serverTimestamp(),
+    }));
+
+    // Signed in user without required fields
+    await assertFails(setDoc(doc(aliceDb, 'users/alice'), {
+      birthday: "January 1",
+    }));
+
+  });
+});
+
+describe("Chat rooms", () => {
+  it('should ONLY allow users to create a room they own', async function() {
+    await assertSucceeds(setDoc(doc(aliceDb, 'rooms/snow'), {
+      owner: "alice",
+      topic: "All Things Snowboarding",
+    }));
+
+  });
+
+  it('should not allow users to create a room if they are not the owner', async function() {
+    await assertFails(setDoc(doc(aliceDb, 'rooms/boards'), {
+      owner: "bob",
+      topic: "All Things Snowboarding",
     }));
   });
 
-  // TODO: Other tests.
+  it('should not allow an update that changes the room owner', async function(){
+    await assertFails(setDoc(doc(aliceDb, 'rooms/snow'), {
+      owner: "bob",
+      topic: "All Things Snowboarding",
+    }));
+  });
 });
