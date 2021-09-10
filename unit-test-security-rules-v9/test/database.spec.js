@@ -23,11 +23,21 @@ const { ref, get, update } = require('firebase/database');
 
 /** @type testing.RulesTestEnvironment */
 let testEnv;
+/** @type testing.RulesTestContext */
+let unauthedDb;
+/** @type testing.RulesTestContext */
+let aliceDb;
+/** @type testing.RulesTestContext */
+let bobDb;
 
 before(async () => {
   testEnv = await initializeTestEnvironment({
     database: {rules: readFileSync('database.rules.json', 'utf8')},
   });
+
+  unauthedDb = testEnv.unauthenticatedContext().database();
+  aliceDb = testEnv.authenticatedContext('alice').database();
+  bobDb = testEnv.authenticatedContext('bob').database();
 });
 
 after(async () => {
@@ -54,34 +64,44 @@ beforeEach(async () => {
   testEnv.clearDatabase();
 });
 
-describe("My Realtime Database security rules", () => {
-  it('should let anyone read any profile', async () => {
-    // Setup:
-    // Use Admin SDK to create documents for testing (bypassing Security Rules).
+describe("Public profiles", () => {
+  it('should allow anyone to read any profile', async () => {
+    // Setup: Create ref for testing (bypassing Security Rules)
     testEnv.withSecurityRulesDisabled(async context => {
       await context.database().ref('users/foobar').set({ foo: 'bar' });
     });
-
     // Then test our security rules by trying to read it using the client SDK.
-    const unauthedDb = testEnv.unauthenticatedContext().database();
     await assertSucceeds(get(ref(unauthedDb, 'users/foobar')));
   });
 
   it('should not allow users to read from a random collection', async () => {
-    const unauthedDb = testEnv.unauthenticatedContext().database();
-
     await assertFails(get(ref(unauthedDb, 'foo/bar')));
   });
 
-  it("should only allow users to modify their own profiles", async () => {
-    const alice = testEnv.authenticatedContext('alice').database();
-    const bob = testEnv.authenticatedContext('bob').database();
-    const noone = testEnv.unauthenticatedContext().database();
-
-    await assertSucceeds(update(ref(alice, 'users/alice'), { favorite_color: "blue" }));
-    await assertFails(update(ref(bob, 'users/alice'), { favorite_color: "red" }));
-    await assertFails(update(ref(noone, 'users/alice'), { favorite_color: "orange" }));
+  it("should ONLY allow users to modify their own profiles", async () => {
+    await assertSucceeds(update(ref(aliceDb, 'users/alice'), { favorite_color: "blue" }));
+    await assertFails(update(ref(aliceDb, 'users/bob'), { favorite_color: "red" }));
+    await assertFails(update(ref(unauthedDb, 'users/alice'), { favorite_color: "orange" }));
   });
+});
 
-  // TODO: Other tests.
+describe("Chat room creation", () => {
+  it('should only be created by user listed as owner', async () => {
+    // Non-owner cannot create a room
+    await assertFails(update(ref(aliceDb, 'rooms/room1'), {owner: "bob"}));
+
+    // Owner can create room
+    await assertSucceeds(update(ref(aliceDb, 'rooms/room1'), {owner: "alice"}));
+  });
+});
+
+describe("Chat rooms members", () => {
+  it('should ONLY be able to added by owner', async () => {
+    // Owner can add a member
+    await assertSucceeds(update(ref(aliceDb, 'rooms/room1'), {owner: "alice"}));
+    await assertSucceeds(update(ref(aliceDb, 'rooms/room1/members'), {bob: true}));
+
+    // Others can't add members
+    await assertFails(update(ref(bobDb, 'rooms/room1/members'), {bob: true}));
+  });
 });
