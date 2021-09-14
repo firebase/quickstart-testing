@@ -37,8 +37,6 @@ before(async () => {
     firestore: {rules: readFileSync('firestore.rules', 'utf8')},
   });
 
-  unauthedDb = testEnv.unauthenticatedContext().firestore();
-  aliceDb = testEnv.authenticatedContext('alice').firestore();
 });
 
 after(async () => {
@@ -64,6 +62,11 @@ after(async () => {
 
 beforeEach(async () => {
   await testEnv.clearFirestore();
+
+  // Define Rules Test Contexts here to dry up tests and avoid cache issues;
+  // included inline instead to be self-contained examples.
+  // unauthedDb = testEnv.unauthenticatedContext().firestore();
+  // aliceDb = testEnv.authenticatedContext('alice').firestore();
 });
 
 
@@ -74,15 +77,21 @@ describe("Public user profiles", () => {
       await setDoc(doc(context.firestore(), 'users/foobar'), { foo: 'bar' });
     });
 
+    unauthedDb = testEnv.unauthenticatedContext().firestore();
+
     // Then test security rules by trying to read it using the client SDK.
     await assertSucceeds(getDoc(doc(unauthedDb, 'users/foobar')));
   });
 
   it('should not allow users to read from a random collection', async () => {
+    unauthedDb = testEnv.unauthenticatedContext().firestore();
+
     await assertFails(getDoc(doc(unauthedDb, 'foo/bar')));
   });
 
   it("should allow ONLY signed in users to create their own profile with required `createdAt` field", async () => {
+    aliceDb = testEnv.authenticatedContext('alice').firestore();
+
     await assertSucceeds(setDoc(doc(aliceDb, 'users/alice'), {
       birthday: "January 1",
       createdAt: serverTimestamp(),
@@ -104,6 +113,8 @@ describe("Public user profiles", () => {
 
 describe("Chat rooms", () => {
   it('should ONLY allow users to create a room they own', async function() {
+    aliceDb = testEnv.authenticatedContext('alice').firestore();
+
     await assertSucceeds(setDoc(doc(aliceDb, 'rooms/snow'), {
       owner: "alice",
       topic: "All Things Snowboarding",
@@ -111,7 +122,9 @@ describe("Chat rooms", () => {
 
   });
 
-  it('should not allow users to create a room if they are not the owner', async function() {
+  it('should not allow room creation by a non-owner', async function() {
+    aliceDb = testEnv.authenticatedContext('alice').firestore();
+
     await assertFails(setDoc(doc(aliceDb, 'rooms/boards'), {
       owner: "bob",
       topic: "All Things Snowboarding",
@@ -119,6 +132,8 @@ describe("Chat rooms", () => {
   });
 
   it('should not allow an update that changes the room owner', async function(){
+    aliceDb = testEnv.authenticatedContext('alice').firestore();
+
     await assertFails(setDoc(doc(aliceDb, 'rooms/snow'), {
       owner: "bob",
       topic: "All Things Snowboarding",

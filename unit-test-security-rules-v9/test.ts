@@ -1,4 +1,3 @@
-import { initializeTestEnvironment, assertFails, assertSucceeds } from '../../firebase-js-sdk/packages/rules-unit-testing';
 /*
 assertSucceeds(Promise.resolve());
 
