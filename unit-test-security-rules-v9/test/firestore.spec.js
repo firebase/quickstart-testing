@@ -23,10 +23,6 @@ const { doc, getDoc, setDoc, serverTimestamp, setLogLevel } = require('firebase/
 
 /** @type testing.RulesTestEnvironment */
 let testEnv;
-/** @type testing.RulesTestContext */
-let unauthedDb;
-/** @type testing.RulesTestContext */
-let aliceDb;
 
 before(async () => {
   // Silence expected rules rejections from Firestore SDK. Unexpected rejections
@@ -58,17 +54,22 @@ after(async () => {
     });
   });
 
-  console.log(`View firestore rule coverage information at ${coverageFile}\n`);});
+  console.log(`View firestore rule coverage information at ${coverageFile}\n`);
+});
 
 beforeEach(async () => {
   await testEnv.clearFirestore();
-
-  // Define Rules Test Contexts here to dry up tests and avoid cache issues;
-  // included inline instead to be self-contained examples.
-  // unauthedDb = testEnv.unauthenticatedContext().firestore();
-  // aliceDb = testEnv.authenticatedContext('alice').firestore();
 });
 
+// If you want to define global variables for Rules Test Contexts to save some
+// typing, make sure to initialize them for *every test* to avoid cache issues.
+//
+//     let unauthedDb;
+//     beforeEach(() => {
+//       unauthedDb = testEnv.unauthenticatedContext().database();
+//     });
+//
+// Or you can just create them inline to make tests self-contained like below.
 
 describe("Public user profiles", () => {
   it('should let anyone read any profile', async function() {
@@ -77,7 +78,7 @@ describe("Public user profiles", () => {
       await setDoc(doc(context.firestore(), 'users/foobar'), { foo: 'bar' });
     });
 
-    unauthedDb = testEnv.unauthenticatedContext().firestore();
+    const unauthedDb = testEnv.unauthenticatedContext().firestore();
 
     // Then test security rules by trying to read it using the client SDK.
     await assertSucceeds(getDoc(doc(unauthedDb, 'users/foobar')));
@@ -90,7 +91,7 @@ describe("Public user profiles", () => {
   });
 
   it("should allow ONLY signed in users to create their own profile with required `createdAt` field", async () => {
-    aliceDb = testEnv.authenticatedContext('alice').firestore();
+    const aliceDb = testEnv.authenticatedContext('alice').firestore();
 
     await assertSucceeds(setDoc(doc(aliceDb, 'users/alice'), {
       birthday: "January 1",
@@ -113,7 +114,7 @@ describe("Public user profiles", () => {
 
 describe("Chat rooms", () => {
   it('should ONLY allow users to create a room they own', async function() {
-    aliceDb = testEnv.authenticatedContext('alice').firestore();
+    const aliceDb = testEnv.authenticatedContext('alice').firestore();
 
     await assertSucceeds(setDoc(doc(aliceDb, 'rooms/snow'), {
       owner: "alice",
@@ -123,7 +124,7 @@ describe("Chat rooms", () => {
   });
 
   it('should not allow room creation by a non-owner', async function() {
-    aliceDb = testEnv.authenticatedContext('alice').firestore();
+    const aliceDb = testEnv.authenticatedContext('alice').firestore();
 
     await assertFails(setDoc(doc(aliceDb, 'rooms/boards'), {
       owner: "bob",
@@ -132,7 +133,7 @@ describe("Chat rooms", () => {
   });
 
   it('should not allow an update that changes the room owner', async function(){
-    aliceDb = testEnv.authenticatedContext('alice').firestore();
+    const aliceDb = testEnv.authenticatedContext('alice').firestore();
 
     await assertFails(setDoc(doc(aliceDb, 'rooms/snow'), {
       owner: "bob",

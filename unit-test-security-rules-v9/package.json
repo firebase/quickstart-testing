@@ -1,5 +1,5 @@
 {
-  "name": "unit-test-security-rules",
+  "name": "unit-test-security-rules-v9",
   "version": "1.0.0",
   "scripts": {
     "test-database": "mocha --exit test/database.spec.js",
@@ -13,6 +13,6 @@
   "devDependencies": {
     "@firebase/rules-unit-testing": "^2.0.0",
     "firebase": "^9.0.0",
-    "mocha": "^8.3.2"
+    "mocha": "^8.4.0"
   }
 }
