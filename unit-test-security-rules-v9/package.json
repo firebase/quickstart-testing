@@ -11,8 +11,8 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@firebase/rules-unit-testing": "^2.0.0",
-    "firebase": "^9.0.2",
+    "@firebase/rules-unit-testing": "^2.0.1",
+    "firebase": "^9.1.0",
     "mocha": "^8.4.0"
   }
 }
