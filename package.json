@@ -2,6 +2,11 @@
   "name": "quickstart-testing",
   "version": "1.0.0",
   "description": "Firebase testing samples",
+  "workspaces": [
+    "manual-emulator-testing",
+    "unit-test-cloud-functions/functions",
+    "unit-test-security-rules"
+  ],
   "scripts": {
     "format": "prettier --write **/*.js",
     "test": "lerna run test"
