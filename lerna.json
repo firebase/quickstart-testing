@@ -4,5 +4,6 @@
     "unit-test-cloud-functions/functions",
     "unit-test-security-rules"
   ],
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
