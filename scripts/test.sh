@@ -1,6 +1,5 @@
 set -e
 
-npm i @nrwl/nx-linux-x64-gnu
 npm install
 # npx lerna bootstrap
 
