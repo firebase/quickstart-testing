@@ -13,29 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const { readFileSync, createWriteStream } = require('fs');
-const http = require("http");
+import { describe, test, beforeEach, beforeAll, afterAll } from '@jest/globals';
+import { initializeTestEnvironment, RulesTestEnvironment } from '@firebase/rules-unit-testing';
+import { expectFirestorePermissionDenied, expectFirestorePermissionUpdateSucceeds, expectPermissionGetSucceeds, getDatabaseCoverageMeta, getFirestoreCoverageMeta } from '../../utils';
+import { readFileSync, createWriteStream } from "node:fs";
+import { get } from "node:http";
+import { resolve } from 'node:path';
+import { doc, getDoc, setDoc, serverTimestamp, setLogLevel } from 'firebase/firestore';
 
-const testing = require('@firebase/rules-unit-testing');
-const { initializeTestEnvironment, assertFails, assertSucceeds } = testing;
+let testEnv: RulesTestEnvironment;
+const PROJECT_ID = 'demo-example-testing';
+const FIREBASE_JSON = resolve(__dirname, '../firebase.json');
 
-const { doc, getDoc, setDoc, serverTimestamp, setLogLevel } = require('firebase/firestore');
+console.log(FIREBASE_JSON);
 
-/** @type testing.RulesTestEnvironment */
-let testEnv;
 
-before(async () => {
+beforeAll(async () => {
   // Silence expected rules rejections from Firestore SDK. Unexpected rejections
   // will still bubble up and will be thrown as an error (failing the tests).
   setLogLevel('error');
-
+  const { host, port } = getDatabaseCoverageMeta(PROJECT_ID, FIREBASE_JSON);
   testEnv = await initializeTestEnvironment({
-    firestore: {rules: readFileSync('firestore.rules', 'utf8')},
+    projectId: PROJECT_ID,
+    firestore: {
+      host,
+      port,
+      rules: readFileSync('firestore.rules', 'utf8')
+    },
   });
 
 });
 
-after(async () => {
+afterAll(async () => {
   // Delete all the FirebaseApp instances created during testing.
   // Note: this does not affect or clear any data.
   await testEnv.cleanup();
@@ -44,11 +53,10 @@ after(async () => {
   const coverageFile = 'firestore-coverage.html';
   const fstream = createWriteStream(coverageFile);
   await new Promise((resolve, reject) => {
-    const { host, port } = testEnv.emulators.firestore;
-    const quotedHost = host.includes(':') ? `[${host}]` : host;
-    http.get(`http://${quotedHost}:${port}/emulator/v1/projects/${testEnv.projectId}:ruleCoverage.html`, (res) => {
+    const { coverageUrl } = getFirestoreCoverageMeta(PROJECT_ID, FIREBASE_JSON);
+    // const quotedHost = host.includes(':') ? `[${host}]` : host;
+    get(coverageUrl, (res) => {
       res.pipe(fstream, { end: true });
-
       res.on("end", resolve);
       res.on("error", reject);
     });
@@ -72,7 +80,7 @@ beforeEach(async () => {
 // Or you can just create them inline to make tests self-contained like below.
 
 describe("Public user profiles", () => {
-  it('should let anyone read any profile', async function() {
+  test('should let anyone read any profile', async function() {
     // Setup: Create documents in DB for testing (bypassing Security Rules).
     await testEnv.withSecurityRulesDisabled(async (context) => {
       await setDoc(doc(context.firestore(), 'users/foobar'), { foo: 'bar' });
@@ -81,31 +89,31 @@ describe("Public user profiles", () => {
     const unauthedDb = testEnv.unauthenticatedContext().firestore();
 
     // Then test security rules by trying to read it using the client SDK.
-    await assertSucceeds(getDoc(doc(unauthedDb, 'users/foobar')));
+    await expectPermissionGetSucceeds(getDoc(doc(unauthedDb, 'users/foobar')));
   });
 
-  it('should not allow users to read from a random collection', async () => {
-    unauthedDb = testEnv.unauthenticatedContext().firestore();
+  test('should not allow users to read from a random collection', async () => {
+    let unauthedDb = testEnv.unauthenticatedContext().firestore();
 
-    await assertFails(getDoc(doc(unauthedDb, 'foo/bar')));
+    await expectFirestorePermissionDenied(getDoc(doc(unauthedDb, 'foo/bar')));
   });
 
-  it("should allow ONLY signed in users to create their own profile with required `createdAt` field", async () => {
+  test("should allow ONLY signed in users to create their own profile with required `createdAt` field", async () => {
     const aliceDb = testEnv.authenticatedContext('alice').firestore();
 
-    await assertSucceeds(setDoc(doc(aliceDb, 'users/alice'), {
+    await expectFirestorePermissionUpdateSucceeds(setDoc(doc(aliceDb, 'users/alice'), {
       birthday: "January 1",
       createdAt: serverTimestamp(),
     }));
 
     // Signed in user with required fields for others' profile
-    await assertFails(setDoc(doc(aliceDb, 'users/bob'), {
+    await expectFirestorePermissionDenied(setDoc(doc(aliceDb, 'users/bob'), {
       birthday: "January 1",
       createdAt: serverTimestamp(),
     }));
 
     // Signed in user without required fields
-    await assertFails(setDoc(doc(aliceDb, 'users/alice'), {
+    await expectFirestorePermissionDenied(setDoc(doc(aliceDb, 'users/alice'), {
       birthday: "January 1",
     }));
 
@@ -113,29 +121,29 @@ describe("Public user profiles", () => {
 });
 
 describe("Chat rooms", () => {
-  it('should ONLY allow users to create a room they own', async function() {
+  test('should ONLY allow users to create a room they own', async function() {
     const aliceDb = testEnv.authenticatedContext('alice').firestore();
 
-    await assertSucceeds(setDoc(doc(aliceDb, 'rooms/snow'), {
+    await expectFirestorePermissionUpdateSucceeds(setDoc(doc(aliceDb, 'rooms/snow'), {
       owner: "alice",
       topic: "All Things Snowboarding",
     }));
 
   });
 
-  it('should not allow room creation by a non-owner', async function() {
+  test('should not allow room creation by a non-owner', async function() {
     const aliceDb = testEnv.authenticatedContext('alice').firestore();
 
-    await assertFails(setDoc(doc(aliceDb, 'rooms/boards'), {
+    await expectFirestorePermissionDenied(setDoc(doc(aliceDb, 'rooms/boards'), {
       owner: "bob",
       topic: "All Things Snowboarding",
     }));
   });
 
-  it('should not allow an update that changes the room owner', async function(){
+  test('should not allow an update that changes the room owner', async function(){
     const aliceDb = testEnv.authenticatedContext('alice').firestore();
 
-    await assertFails(setDoc(doc(aliceDb, 'rooms/snow'), {
+    await expectFirestorePermissionDenied(setDoc(doc(aliceDb, 'rooms/snow'), {
       owner: "bob",
       topic: "All Things Snowboarding",
     }));
