@@ -25,8 +25,6 @@ let testEnv: RulesTestEnvironment;
 const PROJECT_ID = 'demo-example-testing';
 const FIREBASE_JSON = resolve(__dirname, '../firebase.json');
 
-console.log(FIREBASE_JSON);
-
 
 beforeAll(async () => {
   // Silence expected rules rejections from Firestore SDK. Unexpected rejections

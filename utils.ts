@@ -1,6 +1,5 @@
 import { assertFails, assertSucceeds } from '@firebase/rules-unit-testing';
 import { expect } from '@jest/globals';
-const { emulators } = require('../firebase.json');
 
 /**
  * The FIRESTORE_EMULATOR_HOST environment variable is set automatically
@@ -16,7 +15,8 @@ export function parseHostAndPort(hostAndPort: string | undefined): { host: strin
   };
 }
 
-export function getFirestoreCoverageMeta(projectId: string) {
+export function getFirestoreCoverageMeta(projectId: string, firebaseJsonPath: string) {
+  const { emulators } = require(firebaseJsonPath);
   const hostAndPort = parseHostAndPort(process.env.FIRESTORE_EMULATOR_HOST);
   const { host, port } = hostAndPort != null ? hostAndPort : emulators.firestore!;
   const coverageUrl = `http://${host}:${port}/emulator/v1/projects/${projectId}:ruleCoverage.html`;
@@ -31,10 +31,11 @@ export function getFirestoreCoverageMeta(projectId: string) {
  * The FIREBASE_DATABASE_EMULATOR_HOST environment variable is set automatically
  * by "firebase emulators:exec"
  */
-export function getDatabaseCoverageMeta(databaseName: string) {
+export function getDatabaseCoverageMeta(databaseName: string, firebaseJsonPath: string) {
+  const { emulators } = require(firebaseJsonPath);
   const hostAndPort = parseHostAndPort(process.env.FIREBASE_DATABASE_EMULATOR_HOST);
-  const { host, port } = hostAndPort != null ? hostAndPort : emulators.firestore!;
-  const coverageUrl = `http://${process.env.FIREBASE_DATABASE_EMULATOR_HOST}/.inspect/coverage?ns=${databaseName}`;
+  const { host, port } = hostAndPort != null ? hostAndPort : emulators.database!;
+  const coverageUrl = `http://${host}:${port}/.inspect/coverage?ns=${databaseName}`;
   return {
     host,
     port,
@@ -55,6 +56,10 @@ export async function expectDatabasePermissionDenied(promise: Promise<any>) {
 export async function expectFirestorePermissionUpdateSucceeds(promise: Promise<any>) {
   const successResult = await assertSucceeds(promise);
   expect(successResult).toBeUndefined();
+}
+
+export async function expectPermissionGetSucceeds(promise: Promise<any>) {
+  expect(assertSucceeds(promise)).not.toBeUndefined();
 }
 
 export async function expectDatabasePermissionUpdateSucceeds(promise: Promise<any>) {

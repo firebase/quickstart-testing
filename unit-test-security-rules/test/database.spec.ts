@@ -17,7 +17,7 @@ import { get } from 'node:http';
 import { readFileSync, createWriteStream } from 'node:fs';
 import { describe, test, expect, beforeEach, beforeAll, afterAll } from '@jest/globals';
 import { initializeTestEnvironment, RulesTestEnvironment, assertSucceeds } from '@firebase/rules-unit-testing';
-import { getDatabaseCoverageMeta, expectDatabasePermissionDenied, expectDatabasePermissionUpdateSucceeds } from './utils';
+import { getDatabaseCoverageMeta, expectDatabasePermissionDenied, expectDatabasePermissionUpdateSucceeds } from '../../utils';
 
 let testEnv: RulesTestEnvironment;
 
@@ -26,9 +26,10 @@ let testEnv: RulesTestEnvironment;
  */
 const DATABASE_NAME = 'database-emulator-example';
 const PROJECT_ID = 'fakeproject';
+const FIREBASE_JSON = '../firebase.json';
 
 beforeAll(async () => {
-  const { host, port } = getDatabaseCoverageMeta(DATABASE_NAME);
+  const { host, port } = getDatabaseCoverageMeta(DATABASE_NAME, FIREBASE_JSON);
   testEnv = await initializeTestEnvironment({
     projectId: PROJECT_ID,
     database: {
@@ -46,7 +47,7 @@ beforeEach(async () => {
 
 afterAll(async () => {
   // Write the coverage report to a file
-  const { coverageUrl } = getDatabaseCoverageMeta(DATABASE_NAME)
+  const { coverageUrl } = getDatabaseCoverageMeta(DATABASE_NAME, FIREBASE_JSON)
   const coverageFile = 'database-coverage.html';
   const fstream = createWriteStream(coverageFile);
   await new Promise((resolve, reject) => {

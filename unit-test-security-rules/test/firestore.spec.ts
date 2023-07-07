@@ -16,7 +16,7 @@
 import { describe, test, beforeEach, beforeAll, afterAll, expect } from '@jest/globals';
 import { initializeTestEnvironment, RulesTestEnvironment, assertSucceeds } from '@firebase/rules-unit-testing';
 import { serverTimestamp } from 'firebase/firestore'
-import { expectFirestorePermissionDenied, expectFirestorePermissionUpdateSucceeds, getFirestoreCoverageMeta } from './utils';
+import { expectFirestorePermissionDenied, expectFirestorePermissionUpdateSucceeds, getFirestoreCoverageMeta, expectPermissionGetSucceeds } from '../../utils';
 const { readFileSync, createWriteStream } = require("node:fs");
 const { get } = require("node:http");
 
@@ -24,11 +24,11 @@ const { get } = require("node:http");
  * The emulator will accept any project ID for testing.
  */
 const PROJECT_ID = "fakeproject";
-
+const FIREBASE_JSON = '../firebase.json';
 let testEnv: RulesTestEnvironment;
 
 beforeAll(async () => {
-  const { host, port } = getFirestoreCoverageMeta(PROJECT_ID);
+  const { host, port } = getFirestoreCoverageMeta(PROJECT_ID, FIREBASE_JSON);
   testEnv = await initializeTestEnvironment({
     projectId: PROJECT_ID,
     firestore: {
@@ -46,7 +46,7 @@ beforeEach(async () => {
 
 afterAll(async () => {
   // Write the coverage report to a file
-  const { coverageUrl } = getFirestoreCoverageMeta(PROJECT_ID);
+  const { coverageUrl } = getFirestoreCoverageMeta(PROJECT_ID, FIREBASE_JSON);
   const coverageFile = './firestore-coverage.html';
   const fstream = createWriteStream(coverageFile);
   await new Promise((resolve, reject) => {
@@ -97,7 +97,7 @@ describe("My app", () => {
   test("should let anyone read any profile", async () => {
     const db = testEnv.unauthenticatedContext().firestore()
     const profile = db.collection("users").doc("alice");
-    expect(assertSucceeds(profile.get())).not.toBeUndefined();
+    expectPermissionGetSucceeds(profile.get());
   });
 
   test("should let anyone create a room", async () => {
