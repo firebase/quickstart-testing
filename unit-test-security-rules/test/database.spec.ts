@@ -17,7 +17,8 @@ import { get } from 'node:http';
 import { readFileSync, createWriteStream } from 'node:fs';
 import { describe, test, expect, beforeEach, beforeAll, afterAll } from '@jest/globals';
 import { initializeTestEnvironment, RulesTestEnvironment, assertSucceeds } from '@firebase/rules-unit-testing';
-import { getDatabaseCoverageMeta, expectDatabasePermissionDenied, expectDatabasePermissionUpdateSucceeds } from '../../utils';
+import { getDatabaseCoverageMeta, expectDatabasePermissionDenied, expectDatabasePermissionUpdateSucceeds } from './utils';
+import { resolve } from 'node:path';
 
 let testEnv: RulesTestEnvironment;
 
@@ -26,7 +27,7 @@ let testEnv: RulesTestEnvironment;
  */
 const DATABASE_NAME = 'database-emulator-example';
 const PROJECT_ID = 'fakeproject';
-const FIREBASE_JSON = '../firebase.json';
+const FIREBASE_JSON = resolve(__dirname, '../firebase.json');
 
 beforeAll(async () => {
   const { host, port } = getDatabaseCoverageMeta(DATABASE_NAME, FIREBASE_JSON);

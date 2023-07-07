@@ -16,15 +16,16 @@
 import { describe, test, beforeEach, beforeAll, afterAll, expect } from '@jest/globals';
 import { initializeTestEnvironment, RulesTestEnvironment, assertSucceeds } from '@firebase/rules-unit-testing';
 import { serverTimestamp } from 'firebase/firestore'
-import { expectFirestorePermissionDenied, expectFirestorePermissionUpdateSucceeds, getFirestoreCoverageMeta, expectPermissionGetSucceeds } from '../../utils';
+import { expectFirestorePermissionDenied, expectFirestorePermissionUpdateSucceeds, getFirestoreCoverageMeta, expectPermissionGetSucceeds } from './utils';
 const { readFileSync, createWriteStream } = require("node:fs");
 const { get } = require("node:http");
+import { resolve } from 'node:path';
 
 /**
  * The emulator will accept any project ID for testing.
  */
 const PROJECT_ID = "fakeproject";
-const FIREBASE_JSON = '../firebase.json';
+const FIREBASE_JSON = resolve(__dirname, '../firebase.json');
 let testEnv: RulesTestEnvironment;
 
 beforeAll(async () => {

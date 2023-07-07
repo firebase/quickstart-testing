@@ -15,14 +15,14 @@
  */
 import { describe, test, beforeEach, beforeAll, afterAll, expect } from '@jest/globals';
 import { initializeTestEnvironment, RulesTestEnvironment, assertFails } from '@firebase/rules-unit-testing';
-import { getDatabaseCoverageMeta, expectDatabasePermissionDenied, expectDatabasePermissionUpdateSucceeds, expectPermissionGetSucceeds } from '../../utils';
+import { getDatabaseCoverageMeta, expectDatabasePermissionDenied, expectDatabasePermissionUpdateSucceeds, expectPermissionGetSucceeds } from './utils';
 import { readFileSync, createWriteStream } from "node:fs";
 import http from "node:http";
 import { resolve } from 'node:path';
 import { ref, get, update } from 'firebase/database';
 
 const DATABASE_NAME = 'database-emulator-example';
-const PROJECT_ID = 'demo-example-testing';
+const PROJECT_ID = 'fakeproject';
 const FIREBASE_JSON = resolve(__dirname, '../firebase.json');
 let testEnv: RulesTestEnvironment;
 
@@ -41,7 +41,6 @@ beforeAll(async () => {
 afterAll(async () => {
   await testEnv.cleanup();
   // Write the coverage report to a file
-  debugger;
   const { coverageUrl } = getDatabaseCoverageMeta(DATABASE_NAME, FIREBASE_JSON);
   const coverageFile = 'database-coverage.html';
   const fstream = createWriteStream(coverageFile);
