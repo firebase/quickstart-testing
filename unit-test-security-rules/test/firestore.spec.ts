@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, test, expect, beforeEach, beforeAll, afterAll } from '@jest/globals';
-import { initializeTestEnvironment, RulesTestEnvironment, assertFails, assertSucceeds } from '@firebase/rules-unit-testing';
+import { describe, test, beforeEach, beforeAll, afterAll, expect } from '@jest/globals';
+import { initializeTestEnvironment, RulesTestEnvironment, assertSucceeds } from '@firebase/rules-unit-testing';
 import { serverTimestamp } from 'firebase/firestore'
-const { emulators } = require('../firebase.json');
+import { expectFirestorePermissionDenied, expectFirestorePermissionUpdateSucceeds, getFirestoreCoverageMeta } from './utils';
 const { readFileSync, createWriteStream } = require("node:fs");
 const { get } = require("node:http");
 
@@ -25,47 +25,12 @@ const { get } = require("node:http");
  */
 const PROJECT_ID = "fakeproject";
 
-/**
- * The FIRESTORE_EMULATOR_HOST environment variable is set automatically
- * by "firebase emulators:exec", but if you want to provide the host and port manually
- * you can use the code below to use either.
- */
-function parseHostAndPort(hostAndPort: string | undefined): { host: string; port: number; } | undefined {
-  if(hostAndPort == undefined) { return undefined; }
-  const pieces = hostAndPort.split(':');
-  return {
-    host: pieces[0],
-    port: parseInt(pieces[1], 10),
-  };
-}
-
-function getCoverageMeta() {
-  const hostAndPort = parseHostAndPort(process.env.FIRESTORE_EMULATOR_HOST);
-  const { host, port } = hostAndPort != null ? hostAndPort : emulators.firestore!;
-  const coverageUrl = `http://${host}:${port}/emulator/v1/projects/${PROJECT_ID}:ruleCoverage.html`;
-  return {
-    host,
-    port,
-    coverageUrl,
-  }
-}
-
-async function expectPermissionDenied(promise: Promise<any>) {
-  const errorResult = await assertFails(promise);
-  expect(errorResult.code).toBe('permission-denied');
-}
-
-async function expectPermissionSucceeds(promise: Promise<any>) {
-  const successResult = await assertSucceeds(promise);
-  expect(successResult).toBeUndefined();
-}
-
 let testEnv: RulesTestEnvironment;
 
 beforeAll(async () => {
-  const { host, port } = getCoverageMeta();
+  const { host, port } = getFirestoreCoverageMeta(PROJECT_ID);
   testEnv = await initializeTestEnvironment({
-    projectId: 'fakeproject',
+    projectId: PROJECT_ID,
     firestore: {
       port,
       host,
@@ -81,7 +46,7 @@ beforeEach(async () => {
 
 afterAll(async () => {
   // Write the coverage report to a file
-  const { coverageUrl } = getCoverageMeta();
+  const { coverageUrl } = getFirestoreCoverageMeta(PROJECT_ID);
   const coverageFile = './firestore-coverage.html';
   const fstream = createWriteStream(coverageFile);
   await new Promise((resolve, reject) => {
@@ -98,14 +63,14 @@ describe("My app", () => {
   test("require users to log in before creating a profile", async () => {
     const db = testEnv.unauthenticatedContext().firestore()
     const profile = db.collection("users").doc("alice");
-    await expectPermissionDenied(profile.set({ birthday: "January 1" }))
+    await expectFirestorePermissionDenied(profile.set({ birthday: "January 1" }))
   });
 
   test("should enforce the createdAt date in user profiles", async () => {
     const db = testEnv.authenticatedContext('alice').firestore();
     const profile = db.collection("users").doc("alice");
-    await expectPermissionDenied(profile.set({ birthday: "January 1" }));
-    await expectPermissionSucceeds(
+    await expectFirestorePermissionDenied(profile.set({ birthday: "January 1" }));
+    await expectFirestorePermissionUpdateSucceeds(
       profile.set({
         birthday: "January 1",
         createdAt: serverTimestamp(),
@@ -115,13 +80,13 @@ describe("My app", () => {
 
   test("should only let users create their own profile", async () => {
     const db = testEnv.authenticatedContext('alice').firestore();
-    await expectPermissionSucceeds(
+    await expectFirestorePermissionUpdateSucceeds(
       db.collection("users").doc("alice").set({
         birthday: "January 1",
         createdAt: serverTimestamp(),
       })
     );
-    await expectPermissionDenied(
+    await expectFirestorePermissionDenied(
       db.collection("users").doc("bob").set({
         birthday: "January 1",
         createdAt: serverTimestamp(),
@@ -132,13 +97,13 @@ describe("My app", () => {
   test("should let anyone read any profile", async () => {
     const db = testEnv.unauthenticatedContext().firestore()
     const profile = db.collection("users").doc("alice");
-    await assertSucceeds(profile.get());
+    expect(assertSucceeds(profile.get())).not.toBeUndefined();
   });
 
   test("should let anyone create a room", async () => {
     const db = testEnv.authenticatedContext('alice').firestore();
     const room = db.collection("rooms").doc("firebase");
-    await expectPermissionSucceeds(
+    await expectFirestorePermissionUpdateSucceeds(
       room.set({
         owner: "alice",
         topic: "All Things Firebase",
@@ -149,7 +114,7 @@ describe("My app", () => {
   test("should force people to name themselves as room owner when creating a room", async () => {
     const db = testEnv.authenticatedContext('alice').firestore();
     const room = db.collection("rooms").doc("firebase");
-    await expectPermissionDenied(
+    await expectFirestorePermissionDenied(
       room.set({
         owner: "scott",
         topic: "Firebase Rocks!",
@@ -161,14 +126,14 @@ describe("My app", () => {
     const alice = testEnv.authenticatedContext('alice').firestore();
     const bob = testEnv.authenticatedContext('bob').firestore();
 
-    await expectPermissionSucceeds(
+    await expectFirestorePermissionUpdateSucceeds(
       bob.collection("rooms").doc("snow").set({
         owner: "bob",
         topic: "All Things Snowboarding",
       })
     );
 
-    await expectPermissionDenied(
+    await expectFirestorePermissionDenied(
       alice.collection("rooms").doc("snow").set({
         owner: "alice",
         topic: "skiing > snowboarding",

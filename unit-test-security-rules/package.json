@@ -2,9 +2,9 @@
   "name": "unit-test-security-rules",
   "version": "1.0.0",
   "scripts": {
-    "test-database": "mocha --exit test/database.spec.js",
+    "test-database": "jest --forceExit test/database.spec.ts",
     "test-firestore": "jest --forceExit test/firestore.spec.ts",
-    "test": "mocha --exit test/*.spec.js"
+    "test": "jest --forceExit"
   },
   "license": "Apache-2.0",
   "devDependencies": {
