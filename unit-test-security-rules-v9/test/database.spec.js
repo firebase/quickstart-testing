@@ -51,7 +51,7 @@ after(async () => {
 });
 
 beforeEach(async () => {
-  testEnv.clearDatabase();
+  await testEnv.clearDatabase();
 });
 
 // If you want to define global variables for Rules Test Contexts to save some
