@@ -15,14 +15,14 @@
  */
 import { describe, test, beforeEach, beforeAll, afterAll, expect } from '@jest/globals';
 import { initializeTestEnvironment, RulesTestEnvironment } from '@firebase/rules-unit-testing';
-import { expectFirestorePermissionDenied, expectFirestorePermissionUpdateSucceeds, getDatabaseCoverageMeta, getFirestoreCoverageMeta } from './utils';
+import { expectFirestorePermissionDenied, expectFirestorePermissionUpdateSucceeds, getFirestoreCoverageMeta } from './utils';
 import { readFileSync, createWriteStream } from "node:fs";
 import { get } from "node:http";
 import { resolve } from 'node:path';
 import { doc, getDoc, setDoc, serverTimestamp, setLogLevel } from 'firebase/firestore';
 
 let testEnv: RulesTestEnvironment;
-const PROJECT_ID = 'fakeproject';
+const PROJECT_ID = 'fakeproject2';
 const FIREBASE_JSON = resolve(__dirname, '../firebase.json');
 
 
@@ -30,7 +30,7 @@ beforeAll(async () => {
   // Silence expected rules rejections from Firestore SDK. Unexpected rejections
   // will still bubble up and will be thrown as an error (failing the tests).
   setLogLevel('error');
-  const { host, port } = getDatabaseCoverageMeta(PROJECT_ID, FIREBASE_JSON);
+  const { host, port } = getFirestoreCoverageMeta(PROJECT_ID, FIREBASE_JSON);
   testEnv = await initializeTestEnvironment({
     projectId: PROJECT_ID,
     firestore: {
@@ -43,21 +43,17 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await testEnv.cleanup();
-
   // Write the coverage report to a file
-  const coverageFile = 'firestore-coverage.html';
+  const { coverageUrl } = getFirestoreCoverageMeta(PROJECT_ID, FIREBASE_JSON);
+  const coverageFile = './firestore-coverage.html';
   const fstream = createWriteStream(coverageFile);
   await new Promise((resolve, reject) => {
-    const { coverageUrl } = getFirestoreCoverageMeta(PROJECT_ID, FIREBASE_JSON);
-    // const quotedHost = host.includes(':') ? `[${host}]` : host;
     get(coverageUrl, (res) => {
       res.pipe(fstream, { end: true });
       res.on("end", resolve);
       res.on("error", reject);
     });
   });
-
   console.log(`View firestore rule coverage information at ${coverageFile}\n`);
 });
 

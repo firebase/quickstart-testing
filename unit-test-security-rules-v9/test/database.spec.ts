@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { describe, test, beforeEach, beforeAll, afterAll, expect } from '@jest/globals';
+import { describe, test, fit, beforeEach, beforeAll, afterAll, expect } from '@jest/globals';
 import { initializeTestEnvironment, RulesTestEnvironment, assertFails } from '@firebase/rules-unit-testing';
 import { getDatabaseCoverageMeta, expectDatabasePermissionDenied, expectDatabasePermissionUpdateSucceeds, expectPermissionGetSucceeds } from './utils';
 import { readFileSync, createWriteStream } from "node:fs";
@@ -22,7 +22,7 @@ import { resolve } from 'node:path';
 import { ref, get, update } from 'firebase/database';
 
 const DATABASE_NAME = 'database-emulator-example';
-const PROJECT_ID = 'fakeproject';
+const PROJECT_ID = 'fakeproject2';
 const FIREBASE_JSON = resolve(__dirname, '../firebase.json');
 let testEnv: RulesTestEnvironment;
 
