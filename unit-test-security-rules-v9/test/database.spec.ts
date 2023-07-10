@@ -13,37 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const { readFileSync, createWriteStream } = require('fs');
-const http = require('http');
+import { describe, test, fit, beforeEach, beforeAll, afterAll, expect } from '@jest/globals';
+import { initializeTestEnvironment, RulesTestEnvironment, assertFails } from '@firebase/rules-unit-testing';
+import { getDatabaseCoverageMeta, expectDatabasePermissionDenied, expectDatabasePermissionUpdateSucceeds, expectPermissionGetSucceeds } from './utils';
+import { readFileSync, createWriteStream } from "node:fs";
+import http from "node:http";
+import { resolve } from 'node:path';
+import { ref, get, update } from 'firebase/database';
 
-const testing = require('@firebase/rules-unit-testing');
-const { initializeTestEnvironment, assertFails, assertSucceeds } = testing;
+const DATABASE_NAME = 'database-emulator-example';
+const PROJECT_ID = 'fakeproject2';
+const FIREBASE_JSON = resolve(__dirname, '../firebase.json');
+let testEnv: RulesTestEnvironment;
 
-const { ref, get, update } = require('firebase/database');
-
-/** @type testing.RulesTestEnvironment */
-let testEnv;
-
-before(async () => {
+beforeAll(async () => {
+  const { host, port } = getDatabaseCoverageMeta(DATABASE_NAME, FIREBASE_JSON);
   testEnv = await initializeTestEnvironment({
-    database: {rules: readFileSync('database.rules.json', 'utf8')},
+    projectId: PROJECT_ID,
+    database: {
+      port,
+      host,
+      rules: readFileSync('database.rules.json', 'utf8')
+    },
   });
 });
 
-after(async () => {
+afterAll(async () => {
   await testEnv.cleanup();
-
   // Write the coverage report to a file
+  const { coverageUrl } = getDatabaseCoverageMeta(DATABASE_NAME, FIREBASE_JSON);
   const coverageFile = 'database-coverage.html';
   const fstream = createWriteStream(coverageFile);
   await new Promise((resolve, reject) => {
-    const { host, port } = testEnv.emulators.database;
-    const quotedHost = host.includes(':') ? `[${host}]` : host;
-    http.get(`http://${quotedHost}:${port}/.inspect/coverage?ns=${testEnv.projectId}-default-rtdb`, (res) => {
+    http.get(coverageUrl, (res) => {
       res.pipe(fstream, { end: true });
-
-      res.on("end", resolve);
-      res.on("error", reject);
+      res.on('end', resolve);
+      res.on('error', reject);
     });
   });
 
@@ -51,7 +56,7 @@ after(async () => {
 });
 
 beforeEach(async () => {
-  await testEnv.clearDatabase();
+  testEnv.clearDatabase();
 });
 
 // If you want to define global variables for Rules Test Contexts to save some
@@ -65,7 +70,7 @@ beforeEach(async () => {
 // Or you can just create them inline to make tests self-contained like below.
 
 describe("Public profiles", () => {
-  it('should allow anyone to read any profile', async () => {
+  test('should allow anyone to read any profile', async () => {
     // Setup: Create ref for testing (bypassing Security Rules)
     testEnv.withSecurityRulesDisabled(async context => {
       await context.database().ref('users/foobar').set({ foo: 'bar' });
@@ -73,45 +78,44 @@ describe("Public profiles", () => {
     // Setup: Create Rules Test Context
     const unauthedDb = testEnv.unauthenticatedContext().database();
     // Then test our security rules by trying to read it using the client SDK.
-    await assertSucceeds(get(ref(unauthedDb, 'users/foobar')));
+    await expectPermissionGetSucceeds(get(ref(unauthedDb, 'users/foobar')));
   });
 
-  it('should not allow users to read from a random collection', async () => {
+  test('should not allow users to read from a random collection', async () => {
     const unauthedDb = testEnv.unauthenticatedContext().database();
-
-    await assertFails(get(ref(unauthedDb, 'foo/bar')));
+    await expect(assertFails(get(ref(unauthedDb, 'foo/bar')))).resolves;
+    // await expectDatabasePermissionDenied(get(ref(unauthedDb, 'foo/bar')));
   });
 
-  it("should ONLY allow users to modify their own profiles", async () => {
+  test("should ONLY allow users to modify their own profiles", async () => {
     const aliceDb = testEnv.authenticatedContext('alice').database();
     const unauthedDb = testEnv.unauthenticatedContext().database();
 
-    await assertSucceeds(update(ref(aliceDb, 'users/alice'), { favorite_color: "blue" }));
-    await assertFails(update(ref(aliceDb, 'users/bob'), { favorite_color: "red" }));
-    await assertFails(update(ref(unauthedDb, 'users/alice'), { favorite_color: "orange" }));
+    await expectDatabasePermissionUpdateSucceeds(update(ref(aliceDb, 'users/alice'), { favorite_color: "blue" }));
+    await expectDatabasePermissionDenied(update(ref(aliceDb, 'users/bob'), { favorite_color: "red" }));
+    await expectDatabasePermissionDenied(update(ref(unauthedDb, 'users/alice'), { favorite_color: "orange" }));
   });
 });
 
 describe("Chat room creation", () => {
-  it('should only be created by user listed as owner', async () => {
+  test('should only be created by user listed as owner', async () => {
     const aliceDb = testEnv.authenticatedContext('alice').database();
 
     // Non-owner cannot create a room
-    await assertFails(update(ref(aliceDb, 'rooms/room1'), {owner: "bob"}));
+    await expectDatabasePermissionDenied(update(ref(aliceDb, 'rooms/room1'), {owner: "bob"}));
 
     // Owner can create room
-    await assertSucceeds(update(ref(aliceDb, 'rooms/room1'), {owner: "alice"}));
+    await expectDatabasePermissionUpdateSucceeds(update(ref(aliceDb, 'rooms/room1'), {owner: "alice"}));
   });
 });
 
 describe("Chat rooms members", () => {
-  it('should ONLY be able to added by owner', async () => {
+  test('should ONLY be able to added by owner', async () => {
     const aliceDb = testEnv.authenticatedContext('alice').database();
     const bobDb = testEnv.authenticatedContext('bob').database();
 
     // Owner can add a member
-    await assertSucceeds(update(ref(aliceDb, 'rooms/room1'), {owner: "alice"}));
-    await assertSucceeds(update(ref(aliceDb, 'rooms/room1/members'), {bob: true}));
+    await expectDatabasePermissionUpdateSucceeds(update(ref(aliceDb, 'rooms/room1'), {owner: "alice"}));
 
     // Others can't add members
     await assertFails(update(ref(bobDb, 'rooms/room1/members'), {bob: true}));

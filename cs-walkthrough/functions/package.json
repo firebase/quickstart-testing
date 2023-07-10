@@ -11,7 +11,7 @@
     "test": "mocha --timeout 5000 --exit"
   },
   "engines": {
-    "node": "10"
+    "node": ">= 18"
   },
   "dependencies": {
     "file-system": "^2.2.2",

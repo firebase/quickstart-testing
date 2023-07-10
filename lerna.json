@@ -2,7 +2,9 @@
   "packages": [
     "manual-emulator-testing",
     "unit-test-cloud-functions/functions",
-    "unit-test-security-rules"
+    "unit-test-security-rules",
+    "unit-test-security-rules-v9"
   ],
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }

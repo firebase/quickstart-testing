@@ -2,6 +2,12 @@
   "name": "quickstart-testing",
   "version": "1.0.0",
   "description": "Firebase testing samples",
+  "workspaces": [
+    "manual-emulator-testing",
+    "unit-test-cloud-functions/functions",
+    "unit-test-security-rules",
+    "unit-test-security-rules-v9"
+  ],
   "scripts": {
     "format": "prettier --write **/*.js",
     "test": "lerna run test"
@@ -12,8 +18,8 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "firebase-tools": "^9.19.0",
-    "lerna": "^3.22.1",
-    "prettier": "^2.0.5"
+    "firebase-tools": "^12.4.0",
+    "lerna": "^7.1.0",
+    "prettier": "^3.0.0"
   }
 }
