@@ -8,13 +8,13 @@
     "node": ">= 18"
   },
   "dependencies": {
-    "firebase-admin": "^9.12.0",
+    "firebase-admin": "^11.9.0",
     "firebase-functions": "^3.15.7"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "firebase-functions-test": "^0.3.2",
-    "firebase-tools": "^9.19.0",
+    "firebase-tools": "^12.4.3",
     "mocha": "^8.0.1"
   },
   "private": true
