@@ -119,6 +119,6 @@ describe("Chat rooms members", () => {
     await expectDatabasePermissionUpdateSucceeds(update(ref(aliceDb, 'rooms/room1/members'), {bob: true}));
 
     // Others can't add members
-    // await expectDatabasePermissionDenied(update(ref(bobDb, 'rooms/room1/members'), {bob: true}));
+    await assertFails(update(ref(bobDb, 'rooms/room1/members'), {bob: true}));
   });
 });
