@@ -59,7 +59,8 @@ export async function expectFirestorePermissionUpdateSucceeds(promise: Promise<a
 }
 
 export async function expectPermissionGetSucceeds(promise: Promise<any>) {
-  expect(assertSucceeds(promise)).not.toBeUndefined();
+  const successResult = await assertSucceeds(promise);
+  expect(successResult).not.toBeUndefined();
 }
 
 export async function expectDatabasePermissionUpdateSucceeds(promise: Promise<any>) {
