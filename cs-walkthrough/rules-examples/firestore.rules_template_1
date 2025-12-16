@@ -16,10 +16,10 @@ service cloud.firestore {
       // so the following 'allow' statement effectively grants all
       // permissions on all documents to all users. Let's lock down
       // access by setting the condition in the 'allow' to false.
-      // COMMENT OUT OR DELETE THE FOLLOWING LINE
-      allow read, write: if true;
+      // COMMENT OUT OR DELETE THE FOLLOWING LINE - DONE
+      // allow read, write: if true;
       // UNCOMMENT THE FOLLOWING LINE
-      // allow read, write: if false;
+      allow read, write: if false;
       // FINALLY, SAVE THE FILE: FILE > SAVE.
     }
  
