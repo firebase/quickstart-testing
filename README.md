@@ -1,12 +1,4 @@
-rules_version = '2';
-
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if true;
-    }
-  }
-}# Firebase Testing Quickstarts
+# Firebase Testing Quickstarts
 
 A collection of quickstart samples demonstrating testing patterns for Firebase services.
 
