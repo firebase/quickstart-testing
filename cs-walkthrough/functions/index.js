@@ -30,5 +30,7 @@ exports.calculateCart = functions.firestore
         totalPrice,
         itemCount,
       });
-    } catch (err) {}
+    } catch (err) {
+      console.error("Error calculating cart:", err);
+    }
   });

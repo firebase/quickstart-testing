@@ -124,8 +124,8 @@ describe("shopping cart reads, updates, and deletes", () => {
   });
 
   it("cart cannot be updated by a user other than the cart owner", async () => {
-    await firebase.assertSucceeds(
-      db.doc("carts/alicesCart").update({
+    await firebase.assertFails(
+      db.doc("carts/bartsCart").update({
         arbitraryAttribute: true,
       }),
     );
