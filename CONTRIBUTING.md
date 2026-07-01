@@ -2,10 +2,10 @@
 
 We'd love for you to contribute to our source code and to make the Firebase Testing Quickstarts even better than it is today! Here are the guidelines we'd like you to follow:
 
- - [Code of Conduct](#coc)
- - [Issues and Bugs](#issue)
- - [Submission Guidelines](#submit)
- - [Signing the CLA](#cla)
+- [Code of Conduct](#coc)
+- [Issues and Bugs](#issue)
+- [Submission Guidelines](#submit)
+- [Signing the CLA](#cla)
 
 ## <a name="coc"></a>Code of Conduct
 
@@ -20,6 +20,7 @@ If any member of the community violates this code of conduct, the maintainers of
 If you are subject to or witness unacceptable behavior, or have any other concerns, please drop us a line at nivco@google.com.
 
 ## <a name="issue"></a>Found an Issue?
+
 If you find a bug in the source code or a mistake in the documentation, you can help us by
 submitting an issue to our [GitHub Repository][github]. Even better you can submit a Pull Request
 with a fix.
@@ -29,33 +30,35 @@ See [below](#submit) for some guidelines.
 ## <a name="submit"></a>Submission Guidelines
 
 ### Submitting a Pull Request
+
 Before you submit your pull request consider the following guidelines:
 
-* Search [GitHub](https://github.com/firebase/quickstart-testing/pulls) for an open or closed Pull Request
+- Search [GitHub](https://github.com/firebase/quickstart-testing/pulls) for an open or closed Pull Request
   that relates to your submission. You don't want to duplicate effort.
-* Please sign our [Contributor License Agreement (CLA)](#cla) before sending pull
+- Please sign our [Contributor License Agreement (CLA)](#cla) before sending pull
   requests. We cannot accept code without this.
-* Make your changes in a new git branch:
+- Make your changes in a new git branch:
 
-     ```shell
-     git checkout -b my-fix-branch master
-     ```
+  ```shell
+  git checkout -b my-fix-branch master
+  ```
 
-* Create your patch, **including appropriate test cases**.
-* Commit your changes using a descriptive commit message.
+- Create your patch, **including appropriate test cases**.
+- Commit your changes using a descriptive commit message.
 
-     ```shell
-     git commit -a
-     ```
+  ```shell
+  git commit -a
+  ```
+
   Note: the optional commit `-a` command line option will automatically "add" and "rm" edited files.
 
-* Push your branch to GitHub:
+- Push your branch to GitHub:
 
-    ```shell
-    git push origin my-fix-branch
-    ```
+  ```shell
+  git push origin my-fix-branch
+  ```
 
-* In GitHub, send a pull request to `master`.
+- In GitHub, send a pull request to `master`.
 
 That's it! Thank you for your contribution!
 
