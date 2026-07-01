@@ -1,4 +1,3 @@
-
 This directory contains files XYZ to support a Firebase Security Rules
 walkthrough for Cloud Shell and the Learn Assistant.
 
