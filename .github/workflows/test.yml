@@ -25,6 +25,6 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
-      
+
       - name: "Test"
         run: ./scripts/test.sh
