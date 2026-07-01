@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-const fs = require('fs');
+const fs = require("fs");
 const path = require("path");
 
 const TEST_FIREBASE_PROJECT_ID = "test-firestore-rules-project";
@@ -19,73 +19,85 @@ const TEST_FIREBASE_PROJECT_ID = "test-firestore-rules-project";
 const firebase = require("@firebase/rules-unit-testing");
 
 const seedItems = {
-  "chocolate": 4.99,
+  chocolate: 4.99,
   "coffee beans": 12.99,
-  "milk": 5.99
+  milk: 5.99,
 };
 const newItem = {
-  "strawberries": 6.99
+  strawberries: 6.99,
 };
 const aliceAuth = {
   uid: "alice",
-  email: "alice@example.com"
+  email: "alice@example.com",
 };
 
 after(() => {
-  firebase.apps().forEach(app => app.delete());
+  firebase.apps().forEach((app) => app.delete());
 });
 
 describe("shopping cart creation", () => {
-  const admin = firebase.initializeAdminApp({
-    projectId: TEST_FIREBASE_PROJECT_ID
-  }).firestore();
-  const db = firebase.initializeTestApp({
-    projectId: TEST_FIREBASE_PROJECT_ID,
-    auth: aliceAuth
-  }).firestore();
+  const admin = firebase
+    .initializeAdminApp({
+      projectId: TEST_FIREBASE_PROJECT_ID,
+    })
+    .firestore();
+  const db = firebase
+    .initializeTestApp({
+      projectId: TEST_FIREBASE_PROJECT_ID,
+      auth: aliceAuth,
+    })
+    .firestore();
 
   after(() => {
-    firebase.clearFirestoreData({projectId: TEST_FIREBASE_PROJECT_ID});
+    firebase.clearFirestoreData({ projectId: TEST_FIREBASE_PROJECT_ID });
   });
 
-  it('can be created by the cart owner', async () => {
-    await firebase.assertSucceeds(db.doc("carts/alicesCart").set({
-      ownerUID: "alice",
-      total: 0
-    }));
+  it("can be created by the cart owner", async () => {
+    await firebase.assertSucceeds(
+      db.doc("carts/alicesCart").set({
+        ownerUID: "alice",
+        total: 0,
+      }),
+    );
   });
 
   it("cannot be created by user other than the cart owner", async () => {
     // All requests are being made by Alice; testing that she cannot create
     // a cart owned by a different user.
-    await firebase.assertFails(db.doc("carts/adamsCart").set({
-      ownerUID: "adam",
-      items: seedItems
-    }));
+    await firebase.assertFails(
+      db.doc("carts/adamsCart").set({
+        ownerUID: "adam",
+        items: seedItems,
+      }),
+    );
   });
 });
 
 describe("shopping cart reads, updates, and deletes", () => {
-  const db = firebase.initializeTestApp({
-    projectId: TEST_FIREBASE_PROJECT_ID,
-    auth: aliceAuth
-  }).firestore();
+  const db = firebase
+    .initializeTestApp({
+      projectId: TEST_FIREBASE_PROJECT_ID,
+      auth: aliceAuth,
+    })
+    .firestore();
 
   before(async () => {
-    const admin = firebase.initializeAdminApp({
-      projectId: TEST_FIREBASE_PROJECT_ID
-    }).firestore();
+    const admin = firebase
+      .initializeAdminApp({
+        projectId: TEST_FIREBASE_PROJECT_ID,
+      })
+      .firestore();
 
     // Create Alice's cart
     await admin.doc("carts/alicesCart").set({
       ownerUID: "alice",
-      total: 0
+      total: 0,
     });
 
     // Create Bart's cart
     await admin.doc("carts/bartsCart").set({
       ownerUID: "bart",
-      total: 0
+      total: 0,
     });
   });
 
@@ -104,17 +116,20 @@ describe("shopping cart reads, updates, and deletes", () => {
 
   // Cart updates
   it("cart can be updated by the cart owner", async () => {
-    await firebase.assertSucceeds(db.doc("carts/alicesCart").update({
-      arbitraryAttribute: true
-    }));
+    await firebase.assertSucceeds(
+      db.doc("carts/alicesCart").update({
+        arbitraryAttribute: true,
+      }),
+    );
   });
 
   it("cart cannot be updated by a user other than the cart owner", async () => {
-    await firebase.assertSucceeds(db.doc("carts/alicesCart").update({
-      arbitraryAttribute: true
-    }));
+    await firebase.assertSucceeds(
+      db.doc("carts/alicesCart").update({
+        arbitraryAttribute: true,
+      }),
+    );
   });
-
 
   // Cart deletes
   it("cart can be deleted by the cart owner", async () => {
@@ -124,41 +139,44 @@ describe("shopping cart reads, updates, and deletes", () => {
   it("cart cannot be deleted by a user other than the cart owner", async () => {
     await firebase.assertFails(db.doc("carts/bartsCart/items/lemon").delete());
   });
-
 });
 
 describe("cart items creates, reads, updates, and deletes", () => {
-  const db = firebase.initializeTestApp({
-    projectId: TEST_FIREBASE_PROJECT_ID,
-    auth: aliceAuth
-  }).firestore();
+  const db = firebase
+    .initializeTestApp({
+      projectId: TEST_FIREBASE_PROJECT_ID,
+      auth: aliceAuth,
+    })
+    .firestore();
 
   before(async () => {
-    const admin = firebase.initializeAdminApp({
-      projectId: TEST_FIREBASE_PROJECT_ID
-    }).firestore();
+    const admin = firebase
+      .initializeAdminApp({
+        projectId: TEST_FIREBASE_PROJECT_ID,
+      })
+      .firestore();
 
     // Create Alice's cart
     await admin.doc("carts/alicesCart").set({
       ownerUID: "alice",
-      total: 0
+      total: 0,
     });
 
     // Create Bart's cart
     await admin.doc("carts/bartsCart").set({
       ownerUID: "bart",
-      total: 0
+      total: 0,
     });
 
     // Create Items Subcollection in Alice's Cart
     const alicesItemsRef = admin.doc("carts/alicesCart").collection("items");
-    Object.keys(seedItems).forEach(name => {
+    Object.keys(seedItems).forEach((name) => {
       alicesItemsRef.doc(name).set({ value: seedItems[name] });
     });
 
     // Create Items Subcollection in Bart's Cart
     const bartsItemsRef = admin.doc("carts/bartsCart").collection("items");
-    Object.keys(seedItems).forEach(name => {
+    Object.keys(seedItems).forEach((name) => {
       bartsItemsRef.doc(name).set({ name: name, value: seedItems[name] });
     });
   });
@@ -168,18 +186,22 @@ describe("cart items creates, reads, updates, and deletes", () => {
   });
 
   // Item creates
-  it('items can be added to a cart by the cart owner', async () => {
-    await firebase.assertSucceeds(db.doc("carts/alicesCart/items/coffee").set({
-      name: "Decaf Coffee Beans",
-      price: 12.99,
-    }));
+  it("items can be added to a cart by the cart owner", async () => {
+    await firebase.assertSucceeds(
+      db.doc("carts/alicesCart/items/coffee").set({
+        name: "Decaf Coffee Beans",
+        price: 12.99,
+      }),
+    );
   });
 
-  it('items cannot be added to a cart by a user other than the cart owner', async () => {
-    await firebase.assertFails(db.doc("carts/bartsCart/items/coffee").set({
-      name: "Decaf Coffee Beans",
-      price: 12.99,
-    }));
+  it("items cannot be added to a cart by a user other than the cart owner", async () => {
+    await firebase.assertFails(
+      db.doc("carts/bartsCart/items/coffee").set({
+        name: "Decaf Coffee Beans",
+        price: 12.99,
+      }),
+    );
   });
 
   // Item reads
@@ -193,29 +215,31 @@ describe("cart items creates, reads, updates, and deletes", () => {
 
   // Item updates
   it("items can be updated by the cart owner", async () => {
-    await firebase.assertSucceeds(db.doc("carts/alicesCart/items/lemon").set({
-      name: "lemon",
-      price: .99
-    }));
+    await firebase.assertSucceeds(
+      db.doc("carts/alicesCart/items/lemon").set({
+        name: "lemon",
+        price: 0.99,
+      }),
+    );
   });
 
   it("items cannot be updated by a user other than the cart owner", async () => {
-    await firebase.assertFails(db.doc("carts/bartsCart/items/lemon").set({
-      name: "lemon",
-      price: .99
-    }));
+    await firebase.assertFails(
+      db.doc("carts/bartsCart/items/lemon").set({
+        name: "lemon",
+        price: 0.99,
+      }),
+    );
   });
 
   // Item deletes
   it("items can be deleted by the cart owner", async () => {
     await firebase.assertSucceeds(
-      db.doc("carts/alicesCart/items/milk").delete()
+      db.doc("carts/alicesCart/items/milk").delete(),
     );
   });
 
   it("items cannot be deleted by a user other than the cart owner", async () => {
-    await firebase.assertFails(
-      db.doc("carts/bartsCart/items/milk").delete()
-    );
+    await firebase.assertFails(db.doc("carts/bartsCart/items/milk").delete());
   });
 });

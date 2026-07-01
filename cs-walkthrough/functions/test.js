@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-const fs = require('fs');
+const fs = require("fs");
 const path = require("path");
 
 const TEST_FIREBASE_PROJECT_ID = "test-firestore-rules-project";
@@ -22,67 +22,77 @@ const REAL_FIREBASE_PROJECT_ID = "changeme";
 const firebase = require("@firebase/rules-unit-testing");
 
 const seedItems = {
-  "chocolate": 4.99,
+  chocolate: 4.99,
   "coffee beans": 12.99,
-  "milk": 5.99
+  milk: 5.99,
 };
 
 const aliceAuth = {
   uid: "alice",
-  email: "alice@example.com"
+  email: "alice@example.com",
 };
 
 before(async () => {
   // Load the content of the "firestore.rules" file into the emulator before running the
   // test suite. This is necessary because we are using a fake Project ID in the tests,
   // so the rules "hot reloading" behavior which works in the Web App does not apply here.
-  const rulesContent = fs.readFileSync(path.resolve(__dirname, "../firestore.rules"), "utf-8");
+  const rulesContent = fs.readFileSync(
+    path.resolve(__dirname, "../firestore.rules"),
+    "utf-8",
+  );
   await firebase.loadFirestoreRules({
     projectId: TEST_FIREBASE_PROJECT_ID,
-    rules: rulesContent
+    rules: rulesContent,
   });
 });
 
 after(() => {
-  firebase.apps().forEach(app => app.delete());
+  firebase.apps().forEach((app) => app.delete());
 });
 
 // Unit test the security rules
 describe("shopping carts", () => {
-
-  const db = firebase.initializeTestApp({
-    projectId: TEST_FIREBASE_PROJECT_ID,
-    auth: aliceAuth
-  }).firestore();
+  const db = firebase
+    .initializeTestApp({
+      projectId: TEST_FIREBASE_PROJECT_ID,
+      auth: aliceAuth,
+    })
+    .firestore();
 
   after(async () => {
     // Clear data from the emulator
     await firebase.clearFirestoreData({ projectId: TEST_FIREBASE_PROJECT_ID });
   });
 
-  it('can be created by the cart owner', async () => {
-    await firebase.assertSucceeds(db.doc("carts/alicesCart").set({
-      ownerUID: "alice",
-      total: 0
-    }));
+  it("can be created by the cart owner", async () => {
+    await firebase.assertSucceeds(
+      db.doc("carts/alicesCart").set({
+        ownerUID: "alice",
+        total: 0,
+      }),
+    );
   });
 });
 
 describe("shopping carts", async () => {
-  const db = firebase.initializeTestApp({
-    projectId: TEST_FIREBASE_PROJECT_ID,
-    auth: aliceAuth
-  }).firestore();
+  const db = firebase
+    .initializeTestApp({
+      projectId: TEST_FIREBASE_PROJECT_ID,
+      auth: aliceAuth,
+    })
+    .firestore();
 
   before(async () => {
-    const admin = firebase.initializeAdminApp({
-      projectId: TEST_FIREBASE_PROJECT_ID
-    }).firestore();
+    const admin = firebase
+      .initializeAdminApp({
+        projectId: TEST_FIREBASE_PROJECT_ID,
+      })
+      .firestore();
 
     // Create Alice's cart
     await admin.doc("carts/alicesCart").set({
       ownerUID: "alice",
-      total: 0
+      total: 0,
     });
   });
 
@@ -97,20 +107,24 @@ describe("shopping carts", async () => {
 });
 
 describe("shopping cart items", async () => {
-  const db = firebase.initializeTestApp({
-    projectId: TEST_FIREBASE_PROJECT_ID,
-    auth: aliceAuth
-  }).firestore();
+  const db = firebase
+    .initializeTestApp({
+      projectId: TEST_FIREBASE_PROJECT_ID,
+      auth: aliceAuth,
+    })
+    .firestore();
 
   before(async () => {
-    const admin = firebase.initializeAdminApp({
-      projectId: TEST_FIREBASE_PROJECT_ID
-    }).firestore();
+    const admin = firebase
+      .initializeAdminApp({
+        projectId: TEST_FIREBASE_PROJECT_ID,
+      })
+      .firestore();
 
     // Create Alice's cart
     await admin.doc("carts/alicesCart").set({
       ownerUID: "alice",
-      total: 0
+      total: 0,
     });
 
     // Create Items Subcollection in Alice's Cart
@@ -129,10 +143,12 @@ describe("shopping cart items", async () => {
     await firebase.assertSucceeds(db.doc("carts/alicesCart/items/milk").get());
   });
 
-  it("can be added by the cart owner",  async () => {
-    await firebase.assertSucceeds(db.doc("carts/alicesCart/items/lemon").set({
-      name: "lemon",
-      price: 0.99
-    }));
+  it("can be added by the cart owner", async () => {
+    await firebase.assertSucceeds(
+      db.doc("carts/alicesCart/items/lemon").set({
+        name: "lemon",
+        price: 0.99,
+      }),
+    );
   });
 });
