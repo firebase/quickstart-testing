@@ -89,7 +89,7 @@ beforeEach(async () => {
 describe("Public profiles", () => {
   test("should allow anyone to read any profile", async () => {
     // Setup: Create ref for testing (bypassing Security Rules)
-    testEnv.withSecurityRulesDisabled(async (context) => {
+    await testEnv.withSecurityRulesDisabled(async (context) => {
       await context.database().ref("users/foobar").set({ foo: "bar" });
     });
     // Setup: Create Rules Test Context
@@ -100,7 +100,7 @@ describe("Public profiles", () => {
 
   test("should not allow users to read from a random collection", async () => {
     const unauthedDb = testEnv.unauthenticatedContext().database();
-    await expect(assertFails(get(ref(unauthedDb, "foo/bar")))).resolves;
+    await assertFails(get(ref(unauthedDb, "foo/bar")));
     // await expectDatabasePermissionDenied(get(ref(unauthedDb, 'foo/bar')));
   });
 
