@@ -18,8 +18,8 @@
   },
   "license": "Apache-2.0",
   "overrides": {
-    "tar": "^7.5.19",
-    "js-yaml": "^4.1.2",
+    "tar": "^7.5.16",
+    "js-yaml": "^4.2.0",
     "undici": "^6.27.0",
     "tough-cookie": "^4.1.3"
   },
