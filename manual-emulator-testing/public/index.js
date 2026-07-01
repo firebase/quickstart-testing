@@ -17,7 +17,7 @@
 // Initialze Firebase pointing at our test project
 firebase.initializeApp({
   projectId: "fakeproject",
-  apiKey: "fakeApiKey"
+  apiKey: "fakeApiKey",
 });
 
 const db = firebase.firestore();
@@ -52,51 +52,57 @@ const app = new Vue({
 
       this.msgInput = "";
     },
-    signUp: async function() {
+    signUp: async function () {
       console.log("Attempting sign up as", this.emailInput);
       try {
-        const user = await auth.createUserWithEmailAndPassword(this.emailInput, this.passwordInput);
-        this.setUser(user);
+        await auth.createUserWithEmailAndPassword(
+          this.emailInput,
+          this.passwordInput,
+        );
       } catch (e) {
         console.warn(e);
       }
     },
-    signIn: async function() {
+    signIn: async function () {
       console.log("Attempting sign in as", this.emailInput);
       try {
-        const user = await auth.signInWithEmailAndPassword(this.emailInput, this.passwordInput);
-        this.setUser(user);
+        await auth.signInWithEmailAndPassword(
+          this.emailInput,
+          this.passwordInput,
+        );
       } catch (e) {
         console.warn(e);
       }
     },
     setUser: function (user) {
       this.currentUser = user;
+      if (this.unsubscribeMessages) {
+        this.unsubscribeMessages();
+        this.unsubscribeMessages = null;
+      }
       if (user != null) {
         console.log("Signed in as ", user);
 
         // Listen to the messages collection
-        db.collection("messages")
+        this.unsubscribeMessages = db
+          .collection("messages")
           .orderBy("time", "asc")
           .onSnapshot((snap) => {
             console.log("Got data from firestore!");
             this.messages = snap.docs.map((doc) => doc.data());
           });
       }
-    }
+    },
   },
   computed: {
     signedIn: function () {
       return this.currentUser !== null;
-    }
+    },
   },
   created: function () {
     // Listen to auth state
-    this.setUser(auth.currentUser);
     auth.onAuthStateChanged((user) => {
       this.setUser(user);
     });
-
-
   },
 });
