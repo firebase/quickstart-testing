@@ -17,7 +17,7 @@
 // Initialze Firebase pointing at our test project
 firebase.initializeApp({
   projectId: "fakeproject",
-  apiKey: "fakeApiKey"
+  apiKey: "fakeApiKey",
 });
 
 const db = firebase.firestore();
@@ -52,19 +52,25 @@ const app = new Vue({
 
       this.msgInput = "";
     },
-    signUp: async function() {
+    signUp: async function () {
       console.log("Attempting sign up as", this.emailInput);
       try {
-        const user = await auth.createUserWithEmailAndPassword(this.emailInput, this.passwordInput);
+        const user = await auth.createUserWithEmailAndPassword(
+          this.emailInput,
+          this.passwordInput,
+        );
         this.setUser(user);
       } catch (e) {
         console.warn(e);
       }
     },
-    signIn: async function() {
+    signIn: async function () {
       console.log("Attempting sign in as", this.emailInput);
       try {
-        const user = await auth.signInWithEmailAndPassword(this.emailInput, this.passwordInput);
+        const user = await auth.signInWithEmailAndPassword(
+          this.emailInput,
+          this.passwordInput,
+        );
         this.setUser(user);
       } catch (e) {
         console.warn(e);
@@ -83,12 +89,12 @@ const app = new Vue({
             this.messages = snap.docs.map((doc) => doc.data());
           });
       }
-    }
+    },
   },
   computed: {
     signedIn: function () {
       return this.currentUser !== null;
-    }
+    },
   },
   created: function () {
     // Listen to auth state
@@ -96,7 +102,5 @@ const app = new Vue({
     auth.onAuthStateChanged((user) => {
       this.setUser(user);
     });
-
-
   },
 });
