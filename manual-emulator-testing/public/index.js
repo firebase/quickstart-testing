@@ -55,11 +55,10 @@ const app = new Vue({
     signUp: async function () {
       console.log("Attempting sign up as", this.emailInput);
       try {
-        const user = await auth.createUserWithEmailAndPassword(
+        await auth.createUserWithEmailAndPassword(
           this.emailInput,
           this.passwordInput,
         );
-        this.setUser(user);
       } catch (e) {
         console.warn(e);
       }
@@ -67,22 +66,26 @@ const app = new Vue({
     signIn: async function () {
       console.log("Attempting sign in as", this.emailInput);
       try {
-        const user = await auth.signInWithEmailAndPassword(
+        await auth.signInWithEmailAndPassword(
           this.emailInput,
           this.passwordInput,
         );
-        this.setUser(user);
       } catch (e) {
         console.warn(e);
       }
     },
     setUser: function (user) {
       this.currentUser = user;
+      if (this.unsubscribeMessages) {
+        this.unsubscribeMessages();
+        this.unsubscribeMessages = null;
+      }
       if (user != null) {
         console.log("Signed in as ", user);
 
         // Listen to the messages collection
-        db.collection("messages")
+        this.unsubscribeMessages = db
+          .collection("messages")
           .orderBy("time", "asc")
           .onSnapshot((snap) => {
             console.log("Got data from firestore!");
@@ -98,7 +101,6 @@ const app = new Vue({
   },
   created: function () {
     // Listen to auth state
-    this.setUser(auth.currentUser);
     auth.onAuthStateChanged((user) => {
       this.setUser(user);
     });
