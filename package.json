@@ -5,8 +5,7 @@
   "workspaces": [
     "manual-emulator-testing",
     "unit-test-cloud-functions/functions",
-    "unit-test-security-rules",
-    "unit-test-security-rules-v9"
+    "unit-test-security-rules"
   ],
   "scripts": {
     "format": "prettier --write **/*.js",
