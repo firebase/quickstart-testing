@@ -29,11 +29,11 @@ describe("Unit tests", () => {
       const res = {
         send: (text) => {
           resolve(text);
-        }
+        },
       };
 
       // Invoke function with our fake request and response objects.
-      myFunctions.simpleHttp(req, res)
+      myFunctions.simpleHttp(req, res);
     });
 
     // Wait for the promise to be resolved and then check the sent text
@@ -66,7 +66,7 @@ describe("Unit tests", () => {
       {
         text: "hello world",
       },
-      "/lowercase/foo"
+      "/lowercase/foo",
     );
 
     // Call the function
