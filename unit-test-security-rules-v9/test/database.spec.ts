@@ -56,7 +56,9 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await testEnv.cleanup();
+  if (testEnv) {
+    await testEnv.cleanup();
+  }
   // Write the coverage report to a file
   const { coverageUrl } = getDatabaseCoverageMeta(DATABASE_NAME, FIREBASE_JSON);
   const coverageFile = "database-coverage.html";
