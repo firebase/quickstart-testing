@@ -83,22 +83,16 @@ describe("profile read rules", () => {
     const bob = testEnv.authenticatedContext("bob").database();
     const noone = testEnv.unauthenticatedContext().database();
 
-    testEnv.withSecurityRulesDisabled(async (adminContext) => {
+    await testEnv.withSecurityRulesDisabled(async (adminContext) => {
       await adminContext.database().ref("users/alice").set({
         name: "Alice",
         profilePicture: "http://cool_photos/alice.jpg",
       });
     });
 
-    await expect(
-      assertSucceeds(alice.ref("users/alice").once("value")),
-    ).not.toBeUndefined();
-    await expect(
-      assertSucceeds(bob.ref("users/alice").once("value")),
-    ).not.toBeUndefined();
-    await expect(
-      assertSucceeds(noone.ref("users/alice").once("value")),
-    ).not.toBeUndefined();
+    await assertSucceeds(alice.ref("users/alice").once("value"));
+    await assertSucceeds(bob.ref("users/alice").once("value"));
+    await assertSucceeds(noone.ref("users/alice").once("value"));
   });
 
   test("should only allow users to modify their own profiles", async () => {

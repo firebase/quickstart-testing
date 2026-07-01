@@ -118,7 +118,7 @@ describe("My app", () => {
   test("should let anyone read any profile", async () => {
     const db = testEnv.unauthenticatedContext().firestore();
     const profile = db.collection("users").doc("alice");
-    expectPermissionGetSucceeds(profile.get());
+    await expectPermissionGetSucceeds(profile.get());
   });
 
   test("should let anyone create a room", async () => {

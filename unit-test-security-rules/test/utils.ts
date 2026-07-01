@@ -58,7 +58,9 @@ export function getDatabaseCoverageMeta(
 
 export async function expectFirestorePermissionDenied(promise: Promise<any>) {
   const errorResult = await assertFails(promise);
-  expect(errorResult.code).toBe("permission-denied" || "PERMISSION_DENIED");
+  expect(["permission-denied", "PERMISSION_DENIED"]).toContain(
+    errorResult.code,
+  );
 }
 
 export async function expectDatabasePermissionDenied(promise: Promise<any>) {
