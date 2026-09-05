@@ -7,6 +7,6 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "firebase-tools": "^15.22.1"
+    "firebase-tools": "^15.29.0"
   }
 }
